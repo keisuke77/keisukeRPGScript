@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d89f810b800742c4b97bd6271a8ef304
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - effect: {instanceID: 0}
+  - particle: {instanceID: 0}
+  - time: {instanceID: 0}
+  - Itemkind: {instanceID: 0}
+  - playeriteminventory: {fileID: 11400000, guid: 630dd61bd7dfb934e9508a6fea1727d2,
+      type: 2}
+  - textanim: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

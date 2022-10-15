@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: fae68d3ba17a13a4481dc0057f94c4e9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - hpslider: {instanceID: 0}
+  - hpImage: {instanceID: 0}
+  - hptext: {instanceID: 0}
+  - HitParticle: {fileID: 100002, guid: 98f977e4c19aa4c9a854ffbb6e3d9a4f, type: 3}
+  - effect: {fileID: 11400000, guid: b276c0c1066ec7d46ab2574d39564e62, type: 2}
+  - damageTextPos: {instanceID: 0}
+  - DamageMotion: {instanceID: 0}
+  - BigDamageMotion: {instanceID: 0}
+  - icon: {instanceID: 0}
+  - deathparticle: {instanceID: 0}
+  - deatheffect: {fileID: 11400000, guid: 537e7b16de5572b41912d59086f405c5, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
