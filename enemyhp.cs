@@ -51,7 +51,11 @@ Itemkind item=itemcurrent.instance.Itemkind;
         {
           item.Resitance-=damage/10;
         }
+        if (DamageMotion!=null)
+        {
+         
 DamageMotion.Play(gameObject);
+        }
 
 anim.Play("allhit",0,0);
  
@@ -66,12 +70,16 @@ anim.SetTrigger("damage");
 }
 
  public override void damagestop(){
+   if (gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>()!=null)
+   {
  gameObject.GetComponentIfNotNull<UnityEngine.AI.NavMeshAgent>().enabled=false;
- }
+
+   } }
  public override void recover(){
-
+ if (gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>()!=null)
+   {
  gameObject.GetComponentIfNotNull<UnityEngine.AI.NavMeshAgent>().enabled=true;
-
+   }
  }
 
 
@@ -102,7 +110,7 @@ keikei.SetMessage(deathmessage,true,icon);
 if (camerachangetime!=0)
 {
 keikei.atractcamera(camerachangetime,transform,13);
- handle= gameObject.effecseer(deatheffect,true);
+ handle= gameObject.PlayEffect(deatheffect,true);
 }
 
 }

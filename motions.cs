@@ -34,7 +34,7 @@ public void AnimEffect(GameObject obj){
     obj.AddComponentIfnull<Animancer.AnimancerComponent>().Play(animation).Events.OnEnd = OnEnd;
   
 float latetime=animation.length*timing;
-    keikei.delaycall(()=>{obj.Play(effect);instanceobj?.Instantiates(obj.transform);instanceobjs?.Instantiate(obj.transform);},latetime);
+    keikei.delaycall(()=>{obj.PlayEffect(effect);instanceobj?.Instantiates(obj.transform);instanceobjs?.Instantiate(obj.transform);},latetime);
 
 }
 

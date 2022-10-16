@@ -54,9 +54,12 @@ anim=GetComponent<Animator>();
 public virtual void hpheal(int amount){
 HP=HP+amount;
 warning.message("HPが"+amount.ToString()+"回復した！");
-GameObject obj;
+GameObject obj;if (healparticle!=null)
+{
 obj=Instantiate(healparticle, transform.position, Quaternion.identity)as GameObject;
 obj.transform.parent=transform;
+    
+}
 }
 
 
@@ -116,14 +119,18 @@ public bool damage(int damage,bool crit=false,Collider coll=null,bool sequence=f
 damage = Mathf.Clamp(damage,1,9999);
  HP = HP-damage; 
 
+if (anim!=null)
+{
+    
 anim.SetFloat("hp",HP);
 if (HP>0)
 {
 anim.SetTrigger("damage");
 anim.SetFloat("damagevalue",damage);
 }
+}
 
-FlickerModel.damagecolor();
+FlickerModel?.damagecolor();
 HitParticle?.Instantiate(coll?.ClosestPointOnBounds(transform.position)??transform.position);
 hiteffect?.Play(coll?.ClosestPointOnBounds(transform.position)??transform.position);
      
@@ -134,7 +141,7 @@ if (damageTextPrefab!=null)
     if (crit)
       {
           dmgText.transform.localScale*=1.5f;
-          dmgText.GetComponent<Text>().material.color=Color.red;
+          dmgText.GetComponent<TextMesh>().color=Color.red;
           keikei.Effspawns(0,gameObject.transform);
       }
 }

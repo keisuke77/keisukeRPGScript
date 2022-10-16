@@ -233,8 +233,8 @@ direction=(Vector3)keiinput?.GetDpad();
 if (ScrollWheel)
 {
     
-zpos+= Input.GetAxis("Mouse ScrollWheel")*5;
-zpos=Mathf.Clamp(zpos,-20,20);
+distance+= Input.GetAxis("Mouse ScrollWheel")*5;
+distance=Mathf.Clamp(distance,-20,20);
 }
 
    

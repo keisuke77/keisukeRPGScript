@@ -129,7 +129,7 @@ warning.message(Itemkind.GetItemName()+"を装備した");
 Invoke("weapontriggerSet",1f);
 resistanceimage.enabled=true;
 backresistanceimage.enabled=true;
-Player.EffspawnPlayer(Itemkind.weaponseteffect); 
+Player.PlayEffect(Itemkind.weaponseteffect,true); 
 }else
 {
 resistanceimage.enabled=false;
@@ -359,7 +359,7 @@ public void placeitem(){
      if (keiinput.Throw)
      {
 anim.Play("spawnobj",0);
-Player.EffspawnPlayer(Itemkind.effect);
+Player.PlayEffect(Itemkind.effect,true);
      }
 }
 public void sword(){

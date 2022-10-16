@@ -95,7 +95,7 @@ itemusing=true;
 cooltime=0;
 Invoke("enduse",Itemkind.usetime);
   
- anim.gameObject.EffspawnPlayer(Itemkind.effect);
+ anim.gameObject.PlayEffect(Itemkind.effect,true);
       
 }
 

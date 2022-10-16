@@ -5,6 +5,33 @@ using System.Collections.Generic;
 public static class NullableGameObjectExtensions
 {
 
+ public static T1 AddComponentIfnull<T1>(this UnityEngine.GameObject obj)where T1:UnityEngine.Component
+ {
+if (obj==null)
+{
+  return default(T1);
+}
+
+if(obj.GetComponent<T1>()==null)
+{obj.AddComponent(typeof(T1));
+  return obj.GetComponent<T1>();
+}else
+{return obj.GetComponent<T1>();
+}
+
+ }
+
+
+ 
+public static void AddComponentsIfNullInChildren<T>(this UnityEngine.GameObject obj)where T:UnityEngine.Component
+{
+
+foreach (var item in obj.GetAllChild())
+{
+  item.AddComponentIfnull<T>();
+}
+
+}
     public static UnityEngine.Component GetComponentIfNotNull( this UnityEngine.GameObject self, System.Type type ) 
     {
         if ( self == null )

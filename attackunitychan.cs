@@ -14,7 +14,7 @@ public int damagevalue=3;
 public bool breakabled=false;
 public GameObject colldebugobj;
 public GameObject hitparticle;
-	
+	public bool damagehit;
  public bool oncehit=false;
  public static int totaldamage;
     // Start is called before the first frame update
@@ -70,16 +70,13 @@ var crit = Random.value <= CritRate;
 if (obj.CompareTag("Enemy")){
 
 
-if (forcepower!=0)
-{this.addforce(other.gameObject,forcepower,transform);
-    }
-
 if (other.GetComponent<enemyhp>()!=null)
 { 
-   other.GetComponent<enemyhp>().damage(critdamagevalue,crit,gameObject.Collider());
-}else
+ damagehit=  other.GetComponent<enemyhp>().damage(critdamagevalue,crit,gameObject.Collider());
+
+}else if( obj.GetComponent<enemyhp>()!=null)
 {
-   obj.GetComponent<enemyhp>().damage(critdamagevalue,crit,gameObject.Collider());
+  damagehit= obj.GetComponent<enemyhp>().damage(critdamagevalue,crit,gameObject.Collider());
 }
 
 }else if(obj.ptag())
@@ -92,7 +89,15 @@ if (other.GetComponent<enemyhp>()!=null)
     
   }
 }
+if (damagehit)
+{
+  
+if (forcepower!=0)
+{this.addforce(other.gameObject,forcepower,transform);
+    }
 
+  damagehit=false;
+}
 }
 
 
