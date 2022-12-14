@@ -37,9 +37,6 @@ void OnTriggerEnter(Collider other)
 enemyattackcore.attackon(other.gameObject,damagevalue,force,CritRate,CritMultiplier,forcepower,sequencehit);
           }
 }
-
-
-
 }
 
 

@@ -55,7 +55,7 @@ public static float atractskiptime;
 public static Camera cameramain;
 public static Transform cameradefaultparent;
 public static List<GameObject> Allplayer;
-
+public static multcamera multcamera;
 public enum bodypart
 {
    no,righthand,lefthand,rightfoot,leftfoot,weapons
@@ -334,13 +334,11 @@ disolve.dissolvevanish(action);
 
     
     public static void shake()
-    {
-           m_shakeable.InduceStress( 1 );
-        
+    {m_shakeable.InduceStress( 1 );
     }
     public static Effekseer.EffekseerHandle Effspawn(Effekseer.EffekseerEffectAsset effect,Transform trans){
-handle = Effekseer.EffekseerSystem.PlayEffect(effect, trans.position);
-    // transformの回転を設定する。
+    handle = Effekseer.EffekseerSystem.PlayEffect(effect, trans.position);
+// transformの回転を設定する。
     handle.SetRotation(trans.rotation);
 return handle;
 

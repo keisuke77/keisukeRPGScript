@@ -5,6 +5,7 @@ public class effecseer : StateMachineBehaviour
 {
 public Effekseer.EffekseerEffectAsset effect;
 public bool parent;
+Effekseer.EffekseerHandle handle;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -12,7 +13,7 @@ public bool parent;
         
        
         
-        animator.gameObject.effecseer(effect,parent);
+       handle= animator.gameObject.PlayEffect(effect,parent);
     }
     
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -20,7 +21,7 @@ public bool parent;
         
        
         
-        animator.gameObject.effecseerstop();
+        handle.Stop();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

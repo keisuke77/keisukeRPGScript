@@ -67,7 +67,11 @@ data.saveiteminventory=iteminventory;
   }
 
  public void dataupdate(){
-UnityChanControlScriptWithRgidBody.defencepower=data.defence;
+    
+    if (itemcurrent!=null)
+ {
+itemcurrent.defencepower=data.defence;
+ }
 UnityChanControlScriptWithRgidBody.forwardSpeed=data.forwardSpeed;
 UnityChanControlScriptWithRgidBody.backwardSpeed=data.backwardSpeed;
 UnityChanControlScriptWithRgidBody.rotateSpeed=data.rotateSpeed;

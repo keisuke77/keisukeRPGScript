@@ -9,8 +9,6 @@ enemyattack enemyattack;
 
     void Awake()
     {  
- GetComponent<enemyhp>().DamageMotion=enemystatus.DamageMotion;
- GetComponent<enemyhp>().BigDamageMotion=enemystatus.BigDamageMotion;
   GetComponent<navchaise>().Setwaza(enemystatus.waza);
   GetComponent<enemyhp>().HP=enemystatus.HP;
   GetComponent<enemyhp>().enemyname=enemystatus.name;
@@ -24,6 +22,7 @@ enemyattack enemyattack;
   GetComponent<navchaise>().message=enemystatus.discovermessage; 
   GetComponent<navchaise>().icon=enemystatus.icon;
   GetComponent<enemyattackcore>().basedamagevalue=enemystatus.power;
+  GetComponent<enemyattackcore>().enemyname=enemystatus.name.ToString();
   GetComponent<Transform>().localScale=Vector3.one*enemystatus.scale;
     }
  

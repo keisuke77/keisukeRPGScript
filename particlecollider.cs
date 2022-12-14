@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class particlecollider: MonoBehaviour
+public class particlecollider: effect
 {
     [SerializeField]
     GameObject spawnobj;
@@ -15,7 +15,6 @@ public class particlecollider: MonoBehaviour
     public bool death=false; 
 public Transform warpPos;
 List<GameObject> spawns;
-    public int damagepower=10;
 public float explosionspeed=0;
      GameObject obj;
 public bool objspawn=false;
@@ -69,16 +68,10 @@ foreach (var objss in spawns)
     {
         
 if (other.eroottag())
-        {
-
-  
-
-
+{
 if (enemydamage)
 {
-     var b = other.GetComponent<hpcore>();
-b.damage(damagepower);
-
+     damage(other.gameObject);
 }
 
 
@@ -95,12 +88,13 @@ else if (other.gameObject.proottag())
             
             
             obj=other.gameObject.transform.root.gameObject;
-              var hp = obj.GetComponent<hp>();
+             
             var unitycon = obj
             .GetComponent<UnityChanControlScriptWithRgidBody>();
+
 if (playerdamage)
 {
-hp.damage(damagepower);
+damage(obj);
 }
 if (parentEffect!=null)
 {
@@ -119,8 +113,8 @@ if(playerhitobjspawn==true){
 }
 
             if (jumpeffect)
-            { // プレイヤーに風力与える
-unitycon?.AddForce(Vector3.up*effectpower);
+            { 
+                jumpForce(obj);
                      }
         
 
@@ -133,6 +127,7 @@ if (explosionspeed!=0)
         // 風速計算
         var velocity = (other.transform.position - transform.position).normalized * explosionspeed;
     // プレイヤーに風力与える
+    
 unitycon?.AddForce(velocity);
 
 

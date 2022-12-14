@@ -21,10 +21,6 @@ public class enemyhp : hpcore
 	 public int downoften=100;
 
     public string enemyname;
-public motions DamageMotion;
-
-public motions BigDamageMotion;
-
 
 
 
@@ -51,13 +47,11 @@ Itemkind item=itemcurrent.instance.Itemkind;
         {
           item.Resitance-=damage/10;
         }
-DamageMotion.Play(gameObject);
-
+      
 anim.Play("allhit",0,0);
  
   if (keikei.kakuritu(downoften))
     {
-BigDamageMotion.Play(gameObject);
 anim.SetFloat("damagevalue",damage);
 anim.SetInteger("damagevalue",damage);
 anim.SetTrigger("damage");
@@ -66,12 +60,16 @@ anim.SetTrigger("damage");
 }
 
  public override void damagestop(){
+   if (gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>()!=null)
+   {
  gameObject.GetComponentIfNotNull<UnityEngine.AI.NavMeshAgent>().enabled=false;
- }
+
+   } }
  public override void recover(){
-
+ if (gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>()!=null)
+   {
  gameObject.GetComponentIfNotNull<UnityEngine.AI.NavMeshAgent>().enabled=true;
-
+   }
  }
 
 
@@ -90,7 +88,7 @@ if (anim!=null)
    anim.SetBool("death",true);anim.SetBool("dead",true);
 anim.SetTrigger("death");
 anim.SetTrigger("dead");
-keikei.delaycall(()=>deathend(),3f);
+keikei.delaycall(()=>deathend(),6f);
 }else{
    deathend();
 }
@@ -98,13 +96,15 @@ keikei.delaycall(()=>deathend(),3f);
         warning.message(enemyname+"を倒した！");
 keikei.SetMessage(deathmessage,true,icon);
     
-  
+  if (deatheffect!=null)
+  {
+handle= gameObject.PlayEffect(deatheffect,true);
+  }
+
 if (camerachangetime!=0)
 {
 keikei.atractcamera(camerachangetime,transform,13);
- handle= gameObject.effecseer(deatheffect,true);
 }
-
 }
     
 
@@ -131,7 +131,10 @@ if (killer!=null)
 killer.acessdata().addexp(exp);
 killer.acessdata().nowquest?.enemykill(enemyname);
 }
+if (deatheffect!=null)
+{
 handle.Stop(); 
+}
 events.Invoke();
 };
 keikei.dissolvedeath(gameObject,ac);

@@ -7,10 +7,12 @@ public keiinput keiinput;
 public itemcurrent itemcurrent;
 public itemmanage itemmanage;
 public datamanage datamanage;
+public meleecamera meleecamera;
 public Effekseer.EffekseerEmitter playeremitter;
 public interactionlist interactionlist;
 public itemuseplace itemuseplace;
-    
+public message message;
+   public Collider RangeDamageCollider; 
 	void Awake () 
 	{playeremitter=GetComponent<Effekseer.EffekseerEmitter>();
 	datamanage=GetComponent<datamanage>();

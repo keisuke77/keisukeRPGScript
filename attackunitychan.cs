@@ -13,18 +13,18 @@ public int forcepower;
 public int damagevalue=3;
 public bool breakabled=false;
 public GameObject colldebugobj;
-public GameObject hitparticle;
-	
+	public bool damagehit;
  public bool oncehit=false;
  public static int totaldamage;
+ public float radiusDamage=10;
     // Start is called before the first frame update
     void Start()
-    {hitparticle=(GameObject)Resources.Load("hiteffect");
+    {
      damagevalue+=gameObject.acessdata().power;
       }
 
 
-void OnTriggerEnter(Collider other)
+void OnTriggerStay(Collider other)
 {
   if (other.gameObject.root()==gameObject.root())
   {
@@ -40,6 +40,14 @@ if (other.gameObject.root().CompareTag("Explodable"))
   }  
  }
 
+
+public void RangeAddDammage(){
+var search=gameObject.RadiusSearch<Collider>(radiusDamage);
+foreach (var item in search)
+{
+  adddamage(item);
+}
+}
 
 public void adddamage(Collider other){
 
@@ -67,22 +75,19 @@ var crit = Random.value <= CritRate;
 			
       
 
-if (obj.CompareTag("Enemy")){
+if (obj.eroottag()){
 
 
-if (forcepower!=0)
-{this.addforce(other.gameObject,forcepower,transform);
-    }
-
-if (other.GetComponent<enemyhp>()!=null)
+if (other.GetComponent<hpcore>()!=null)
 { 
-   other.GetComponent<enemyhp>().damage(critdamagevalue,crit,gameObject.Collider());
-}else
+ damagehit=  other.GetComponent<hpcore>().damage(critdamagevalue,crit,gameObject.Collider(),false);
+
+}else if( obj.GetComponent<hpcore>()!=null)
 {
-   obj.GetComponent<enemyhp>().damage(critdamagevalue,crit,gameObject.Collider());
+  damagehit= obj.GetComponent<hpcore>().damage(critdamagevalue,crit,gameObject.Collider(),false);
 }
 
-}else if(obj.ptag())
+}else if(obj.proottag())
 {
   
 }else
@@ -92,7 +97,15 @@ if (other.GetComponent<enemyhp>()!=null)
     
   }
 }
+if (damagehit)
+{
+  
+if (forcepower!=0)
+{this.addforce(other.gameObject,forcepower,transform);
+    }
 
+  damagehit=false;
+}
 }
 
 

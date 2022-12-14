@@ -14,11 +14,7 @@ public class warning : MonoBehaviour
    
 public static string newstext;
    
-public static void message(string text){
-message(text,0);
 
-
-}
 public static void warn(string text){
 message(text,1);
 
@@ -26,35 +22,30 @@ message(text,1);
 }
 public static GameObject obj;
 public static float Ypos;
-public static void message(string text,int number){
+public static void message(string text,int number=0){
 
-if (obj)
+if (obj==null)
 {
-  Ypos+=100;
-}else
-{
-  Ypos=0;
+  obj= Instantiate(messages[number],new Vector3(0,Ypos,0),Quaternion.identity);
+
 }
-  obj= Instantiate(messages[number],messages[number].transform.position+new Vector3(0,Ypos,0),Quaternion.identity);
-
+ 
   
-obj.GetComponentsInChildren<TextMeshPro>().ToList().ForEach(n=>n.SetText(text));
-
-
-
-
 if (obj.GetComponentInChildren<Text>()!=null)
 {
   
-obj.GetComponentInChildren<Text>().text=text;
+obj.GetComponentInChildren<Text>().text+="\n"+text;
 
 }else if(obj.GetComponentInChildren<TextMeshProUGUI>()!=null)
-{
-
-
-  
-
+{  
+obj.GetComponentsInChildren<TextMeshPro>().ToList().ForEach(n=>n.text+="\n"+text);
 }
+
+
+
+
+
+
 Destroy(obj,4);
 
 } 

@@ -19,19 +19,14 @@ data data;
   
 public int num;
 
-public void questpanelopen(quest[] quest){
-questpanelopen();
-quests=quest;
- questboardset(quests[num]);
-       
-}
 
 public void questpanelopen(quests quest){
 
 bigtitle.text=quest.title;
-questpanelopen(quest.questss);
 
-       
+  questpanelopen();
+quests=quest.questss;
+ questboardset(quests[num]);     
 }
 
 public void questpanelopen()

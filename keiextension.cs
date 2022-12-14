@@ -62,24 +62,6 @@ public static class keiextension { public static Effekseer.EffekseerHandle handl
    
    
    
-    public static Effekseer.EffekseerHandle Play(this GameObject obj,Effekseer.EffekseerEffectAsset effect){
-
-return obj.EffspawnPlayer(effect);
-    }
- 
-    public static Effekseer.EffekseerHandle EffspawnPlayer(this GameObject obj,Effekseer.EffekseerEffectAsset effect,float duration=0){
- if (effect!=null)
-{
-   handle= obj.EffspawnPlayer(effect);
-}
-if (duration>0)
-{
- keikei.delaycall(()=>handle.Stop(),duration);
-}
-return handle;
-    // transformの回転を設定する。
-    } 
-
 
 public static void ScaleUpper(this Transform trans,float speed=1){
  Vector3 basescale= trans.localScale;
@@ -97,11 +79,6 @@ public static void scalechange(this GameObject target,float num,float speed=1){
     public static void delaycall(this System.Action action,float time){
 keikei.delaycall(action,time);
     }
-     public static void EffspawnPlayerStop(this GameObject obj){
- obj.pclass().playeremitter.Stop();
- 
-    // transformの回転を設定する。
-    } 
 
 public static int stringindexScene(this string name){
   
@@ -240,21 +217,6 @@ return Input.GetKeyUp(KeyCode);
 public static bool keyhold(this KeyCode KeyCode){
 return Input.GetKey(KeyCode);
 }
- public static T1 AddComponentIfnull<T1>(this UnityEngine.GameObject obj)where T1:UnityEngine.Component
- {
-if (obj==null)
-{
-  return default(T1);
-}
-
-if(obj.GetComponent<T1>()==null)
-{obj.AddComponent(typeof(T1));
-  return obj.GetComponent<T1>();
-}else
-{return obj.GetComponent<T1>();
-}
-
- }
 
 
  public static T2 ForceChildremovecomponentandattach<T1,T2>(this GameObject obj){
@@ -322,59 +284,6 @@ Vector3 move=to-vec;
 
 return vec+(move*rate);
 }
-public static void effekseerspawn(this targeteffect targeteffect){
-    var a=targeteffect;
-GameObject obj;
-if(a.effect)
-{
-    if (a.target!=null)
-      {
-        a.target.gameObject.effecseer(a.effect,a.parent).SetRotation(Quaternion.Euler(a.rot));
-      }else
-      {
-        a.part.Getbodypart().effecseer(a.effect,a.parent).SetRotation(Quaternion.Euler(a.rot));
-      }
-}
-    
-
-if (a.particle)
-{
-if (a.target)
-      { 
-        obj=  keikei.instantiate(a.particle,a.target,a.parent);
-        }else
-      {
- obj=keikei.instantiate(a.particle,a.part.Getbodypart().transform,a.parent);
-     
-
-            }
-
-if (a.damagevalue.ondamage)
-{
-
-
- 
-    if (a.damagevalue.player)
-  {obj.ForceChildremovecomponentandattach<playerdamage,enemyattack>();
-    
- obj.AddComponent(typeof(enemyattack));
- 
- obj.GetComponent<enemyattack>().damagevalue=a.damagevalue.value;
-  }else
-  {
-    
-  }
-  
-    
- obj.AddComponent(typeof(playerdamage));
-
- obj.GetComponent<playerdamage>().damagevalue=a.damagevalue.value;
-  
-}
-   
-}
-    
-}
 
 public static T debug<T>(this T t){
 
@@ -413,15 +322,6 @@ keikei.fadedeath(obj,time);};
 }
 
 
-public static void AddComponentsIfNullInChildren<T>(this UnityEngine.GameObject obj)where T:UnityEngine.Component
-{
-
-foreach (var item in obj.GetAllChild())
-{
-  item.AddComponentIfnull<T>();
-}
-
-}
 
 
 public static Camera Getplayercamera(this GameObject obj){
@@ -505,25 +405,7 @@ if (objs.GetComponent<T>()==null)
 
  return objs.GetComponent<T>();
   }
-  public static Effekseer.EffekseerHandle effecseer(this GameObject obj,Effekseer.EffekseerEffectAsset effect,bool parent){
-
-     if (parent)
-{ if(!obj.GetComponent<Effekseer.EffekseerEmitter>()){
- obj.AddComponent(typeof(Effekseer.EffekseerEmitter));
-   
-}
- return obj.GetComponent<Effekseer.EffekseerEmitter>().Play(effect);
-
-}else
-{
-   return keikei.Effspawn(effect,obj.transform);
-}
-  }public static void effecseerstop(this GameObject obj){
-  obj.GetComponentIfNotNull<Effekseer.EffekseerEmitter>().Stop();
-
-
-     
-  }
+ 
 
 
 

@@ -31,10 +31,16 @@ TriggerDamage(obj);
 public void AnimEffect(GameObject obj){
 
     objs=obj;
-    obj.AddComponentIfnull<Animancer.AnimancerComponent>().Play(animation).Events.OnEnd = OnEnd;
-  
+    if (obj.GetComponent<Animancer.AnimancerComponent>()!=null)
+    {
+      obj.GetComponent<Animancer.AnimancerComponent>().enabled=true;
+    obj.GetComponent<Animancer.AnimancerComponent>().Play(animation).Events.OnEnd = OnEnd;
+    }else
+    {
+      obj.AddComponentIfnull<Animancer.AnimancerComponent>().Play(animation).Events.OnEnd = OnEnd;
+    }
 float latetime=animation.length*timing;
-    keikei.delaycall(()=>{obj.Play(effect);instanceobj?.Instantiates(obj.transform);instanceobjs?.Instantiate(obj.transform);},latetime);
+    keikei.delaycall(()=>{obj.PlayEffect(effect);instanceobj?.Instantiates(obj.transform);instanceobjs?.Instantiate(obj.transform);},latetime);
 
 }
 
@@ -108,8 +114,8 @@ float endtime=animation.length*enddamagetime;
 
 
    public void OnEnd(){
-
-objs.GetComponent<Animancer.AnimancerComponent>().Stop();
+objs.GetComponent<Animancer.AnimancerComponent>().enabled=false;
+ 
 continuemotion.Play(objs);
    }
 }

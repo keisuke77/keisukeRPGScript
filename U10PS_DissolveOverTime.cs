@@ -102,14 +102,12 @@ dissolve.dissolveOutIn(1f,()=>GetComponent<hp>().muteki(1));
 
 
 
-    public void dissolvevanish(System.Action action){
+    public void dissolvevanish(System.Action action=null){
         
 dissolve.meshRenderers=meshRenderers;
-dissolve.dissolveOut(()=>{action();Destroy(gameObject);});
+dissolve.dissolveOut(()=>{Destroy(gameObject);action();});
     }
-    public void dissolvevanish(){
-        dissolvevanish(null);
-       }
+    
 
  public void meshflatstart(){
     

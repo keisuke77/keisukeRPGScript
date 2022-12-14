@@ -8,6 +8,7 @@ iteminventory playeriteminventory;
 public UnityChanControlScriptWithRgidBody UnityChanControlScriptWithRgidBody;
 public GameObject Player;
 
+	public bool defences;
 [SerializeField]
  Text text;
  public Animator anim;
@@ -21,8 +22,8 @@ public GameObject Player;
   mp mp;
   Itemkind noitem;
  
- public Text explain;
- public Text selectText;
+Effekseer.EffekseerEmitter playeremitter;
+Effekseer.EffekseerHandle handle;
  public Text numbertext;
  GameObject freeobj;
    Transform tran;
@@ -37,6 +38,8 @@ keiinput keiinput;
     {
      	 gameObject.pclass().itemcurrent=this; 
            instance=this;
+            playeremitter=gameObject.root().GetComponent<Effekseer.EffekseerEmitter>();
+			
     }
 
 
@@ -50,16 +53,15 @@ keiinput keiinput;
 	 tran=gameObject.root().transform;
         noitem=keikei.noitem;
         data=gameObject.acessdata();  
- 
+ temp=data.Itemkind;
         playeriteminventory=data.saveiteminventory;
-    Player=gameObject.root();
+        Player=gameObject.root();
         objchange= Player.GetComponent<objectchange>();
         UnityChanControlScriptWithRgidBody=Player.GetComponent<UnityChanControlScriptWithRgidBody>();
-  image=GetComponent<Image>();
-
-hp=Player.GetComponent<hp>();
+        image=GetComponent<Image>();
+        hp=Player.GetComponent<hp>();
 itemmanage.imagecreate();  
- setitem(data.Itemkind);
+keikei.delaycall(()=>setitem(temp),0.5f); 
     image.sprite=Itemkind?.GetIcon();
         
     mp=Player.GetComponent<mp>();
@@ -82,7 +84,10 @@ public void removeitem(){
 
 public void itemchange(){
  objchange.objhide();
- UnityChanControlScriptWithRgidBody.defenceend();
+ if (defences)
+ {
+ defenceend();
+ }
 }
 
 public void numbertexts(){
@@ -129,7 +134,7 @@ warning.message(Itemkind.GetItemName()+"を装備した");
 Invoke("weapontriggerSet",1f);
 resistanceimage.enabled=true;
 backresistanceimage.enabled=true;
-Player.EffspawnPlayer(Itemkind.weaponseteffect); 
+Player.PlayEffect(Itemkind.weaponseteffect,true); 
 }else
 {
 resistanceimage.enabled=false;
@@ -162,7 +167,7 @@ text.text="";
 Itemkind.Resitance-=damage;
    }
   
-
+Itemkind temp;
     // Update is called once per frame
     void LateUpdate()
     {   
@@ -207,6 +212,29 @@ placeitem();
          }
 
 
+
+public Effekseer.EffekseerEffectAsset difenceeffect;
+     //重力の大きさ
+    public int defencepower;
+
+public void defence(int defencepowers=500){
+  
+handle = playeremitter.Play(difenceeffect);
+gameObject.root().GetComponent<UnityChanControlScriptWithRgidBody>().rotateonly=true;
+anim.SetBool("defence",true);
+hp.defence=defencepowers;
+defences=true;
+}
+public void defenceend(){
+     handle.Stop();
+	anim.SetBool("defence",false);
+gameObject.root().GetComponent<UnityChanControlScriptWithRgidBody>().rotateonly=false;
+if (hp!=null)
+{
+     hp.defence=defencepower;
+}
+	  defences=false;
+}
 
 
 
@@ -359,7 +387,7 @@ public void placeitem(){
      if (keiinput.Throw)
      {
 anim.Play("spawnobj",0);
-Player.EffspawnPlayer(Itemkind.effect);
+Player.PlayEffect(Itemkind.effect,true);
      }
 }
 public void sword(){
@@ -387,13 +415,13 @@ public void arture(GameObject bow){
       bowshot.basepower=Itemkind.GetPower();
         if (keiinput.attack)
         {
-             
+             UnityChanControlScriptWithRgidBody.objrotate=true;
 bowcharge=true;
 anim.SetBool("bow",true);
 bowshot.damagevalue=0;
 
         } else if (keiinput.attackup)
-        {
+        {UnityChanControlScriptWithRgidBody.objrotate=false;
           if (Itemkind.optionget()==1)
           {
             bowshot.danyaku=true;
@@ -406,6 +434,9 @@ bowcharge=false;
         }
  if (bowcharge)
         {
+
+
+          
 bowshot.damagevalue++;
    }
 }
@@ -415,12 +446,12 @@ public void shield(){
 
    if (keiinput.attack)
         {
-         UnityChanControlScriptWithRgidBody.defence(Itemkind.GetPower());
+         defence(Itemkind.GetPower());
 
 
         } else if (keiinput.attackup)
         {
-         UnityChanControlScriptWithRgidBody.defenceend();
+         defenceend();
           }
 }
 

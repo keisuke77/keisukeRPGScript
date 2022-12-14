@@ -47,6 +47,8 @@ public bool playerlook;
 public float patrolnexttime=8;
 float patrolnexttimes;
 public int patrollarea=10;
+public Vector3 mesPos;
+public bool meleecamerachange;
 public void Setwaza(waza wazas){
 
     waza=wazas;
@@ -83,8 +85,8 @@ int nowhp;
     void Start()
     {
         
-         trans=GetComponent<Transform>();
-         agent = GetComponent<NavMeshAgent>();
+trans=GetComponent<Transform>();
+agent = GetComponent<NavMeshAgent>();
 anim = GetComponent<Animator> ();
 enemyhp=GetComponent<enemyhp>();
 nowhp=enemyhp.HP;
@@ -123,7 +125,8 @@ pointupdate();
 
 public float closedistancerate;
 public void SetDestination(){
- agent.destination=(closedistancerate*point.position+transform.position)/(closedistancerate+1);
+ agent.destination=point.position+(transform.position-point.position).normalized;
+ 
 }
 
 public void stop(){
@@ -138,12 +141,6 @@ once=true;
 
  void meleeattack(){
 
-if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Idle"))
-       {
-          CancelInvoke();
-meleeonce=false;
-return;
-       }
                
 foreach (var item in waza.wazalist)
 {
@@ -175,8 +172,6 @@ if (meleedistance<0.01f)
     {
          newposition();
     }
-       
-
     }
    
     if (alwayschaise)
@@ -201,16 +196,24 @@ if(!onces){ keikei.delaycall(firstdiscover,1f);
 
 public void firstdiscover(){
 
-    
-   trans.LookAt(gameObject.NearserchTag("Player").transform);
+   trans.LookAt(point);
    anim.SetBool(firstanim,true);
    
                 if (discoverevent!=null)
                 {discoverevent?.Invoke();
                     
                 }
+
+if (meleecamerachange)
+{
+    point.gameObject.pclass().meleecamera.Set(transform);
+}
+
                  if (message!="")
-                {message m= gameObject.NearserchTag("Player")?.acessmessage();
+                {
+                    message.CreateMesImage(gameObject,mesPos);
+                    
+                    message m= point.gameObject.acessmessage();
                       
                     if (m!=null)
                       {
@@ -234,6 +237,11 @@ public void patrolmode(){
        {agent.speed=patrollspeed;
           CancelInvoke();
 meleeonce=false;
+if (meleecamerachange)
+{
+    point.gameObject.pclass().meleecamera.Set(null);
+}
+
        }
     patroltime-=Time.deltaTime;
  Vector3 Apos = trans.position;

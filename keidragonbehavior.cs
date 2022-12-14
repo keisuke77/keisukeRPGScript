@@ -78,12 +78,9 @@ keikei.Effspawn(snoweffect,trans);
 
 }
 void OnCollisionEnter(Collision collisionInfo)
-{if (collisionInfo.ptag()&&anim.GetBool("skyattack"))
+{if (collisionInfo.proottag()&&anim.GetBool("skyattack"))
 {
      anim.SetBool("skyattack",false);
-     
-
-
 }
      
 }

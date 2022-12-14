@@ -69,8 +69,11 @@ public void dissolveOutIn(float time,Action action){
 
                          if (items.shader!=fixshader)
                          {
-                             items.shader=dissolveShader;
-                
+                            if (dissolveShader!=null)
+                            {
+                                items.shader=dissolveShader; 
+                            }
+                            
                          }
                         
                 items.SetTexture("_NoiseTex", NoiseTexture);

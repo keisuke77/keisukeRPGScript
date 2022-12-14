@@ -69,10 +69,11 @@ public static UnityEvent events;
      float autotime;
  public float cameradistance;
     void Awake() {
-         
+         gameObject.pclass().message=this;
         clickIcon.enabled = false;
          messageText.text = "";
-          messagecanvas.enabled=false; keikei.allMessage=Object.FindObjectsOfType(typeof(message))as message[];
+          messagecanvas.enabled=false; 
+          keikei.allMessage=Object.FindObjectsOfType(typeof(message))as message[];
          
             
        }
@@ -240,19 +241,18 @@ action=null;
         }
         
     }
-  public void SetMessagePanel(string message, bool a=false,Image icons=null) {
-       
-       SetMessagePanel(message,a,icons?.sprite);
-       
-    } 
+
     
-    
-    public void SetMessagePanel(string message, bool a,Sprite icons) {
+    public void SetMessagePanel(string message, bool a=false,Sprite icons=null,System.Action ac=null) {
 
         if (message=="")
        {
 events=null;
            return;
+       }
+       if (ac!=null)
+       {
+        action=ac;
        }
        auto=a;
        icon.sprite=icons;

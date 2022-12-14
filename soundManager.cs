@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
  
-public class soundManager : SingletonMonoBehaviour<SoundManager>
+public class soundManager : SingletonMonoBehaviour<soundManager>
 {
     [SerializeField, Range(0, 1), Tooltip("マスタ音量")]
     float volume = 1;

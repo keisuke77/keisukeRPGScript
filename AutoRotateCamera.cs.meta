@@ -1,20 +1,9 @@
 fileFormatVersion: 2
-guid: 7ec706070fd7b104d8d790d9376eb50d
+guid: 90eee6cc9a0358341a13c55928442e1e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - message: {instanceID: 0}
-  - camera: {instanceID: 0}
-  - charaLookAtPosition: {instanceID: 0}
-  - defaultcharaLookAtPosition: {instanceID: 0}
-  - defaultparent: {instanceID: 0}
-  - keiinput: {instanceID: 0}
-  - defaultCameraSetting: {fileID: 11400000, guid: 9057194037c2e3d459d31d7db078c579,
-      type: 2}
-  - nowCameraSetting: {instanceID: 0}
-  - Player: {instanceID: 0}
-  - nowxyz: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

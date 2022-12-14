@@ -6,18 +6,27 @@ public class navmeshstop : StateMachineBehaviour
 {
   public float speed;
   float a;
+  public UnityEngine.AI.NavMeshAgent nav;
    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       var nav= animator.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        nav= animator.GetComponent<UnityEngine.AI.NavMeshAgent>();
      
            a=nav.speed;
      
        
         nav.speed=speed;
-    }   override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    } 
+        override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       var nav= animator.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        nav.speed=speed;
+    } 
+    
+    
+    
+    
+      override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
        
        nav.speed=a;
     } 

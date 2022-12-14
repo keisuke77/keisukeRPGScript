@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class animationeventrecever : MonoBehaviour
 {
 [SerializeField]
@@ -27,9 +27,10 @@ public void hpitemheal(){
 }
     
 public void scaleitembig(){
-
-    scalechangeplayer.scalechange(itemuse.instance.Itemkind.GetPower());
+transform.DOScale( itemuse.instance.Itemkind.GetPower(),(float)itemuse.instance.Itemkind.GetPower()/2).SetRelative(true);
     itemuse.instance.itemused();
+    keikei.delaycall(()=>transform.DOScale( 1/itemuse.instance.Itemkind.GetPower(),(float)itemuse.instance.Itemkind.GetPower()/2).SetRelative(true),15f
+ );
 }
     
     public void charactorchangeitem(){
@@ -49,7 +50,7 @@ keikei.shake();
     }
 public void equip(){
 
-itemuse.equiped();
+itemuse.instance.itemused();
 itemuse.instance=null;
 }
 

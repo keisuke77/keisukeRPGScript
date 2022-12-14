@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Coffee.UIExtensions;
-
+using DG.Tweening;
  
 public class hpcore : MonoBehaviour{ 
+    public bool muteki;
       [Range(2, 0)]
      public float timeScale=1;
     public Animator anim;
@@ -18,13 +19,14 @@ public class hpcore : MonoBehaviour{
     public bool nodamage=false;
     public GameObject HitParticle;
     public bool cooldown=false;
-    public int cooldowntime=2;
+    public float cooldowntime=0.8f;
     public GameObject healparticle;
     public GameObject killer;
     public Slider hpslider; 
     public Effekseer.EffekseerEffectAsset hiteffect;
     public int defence;
 public bool deathonce;
+public bool damageshakepos;
     // Start is called before the first frame update
 
     public void Start()
@@ -32,11 +34,14 @@ public bool deathonce;
 
 FlickerModel=GetComponent<FlickerModel>();
 anim=GetComponent<Animator>();
-       
+      
        if (HP>maxHP)
        {
            maxHP=HP;
-       }
+       } if (hpImage!=null)
+{
+    hpImage.DOFillAmount((float)HP/maxHP, 0.5f).SetEase(Ease.InQuart); 
+}
        if (damageTextPrefab==null)
        {
            damageTextPrefab=(GameObject)Resources.Load("DamagePopup");
@@ -54,9 +59,12 @@ anim=GetComponent<Animator>();
 public virtual void hpheal(int amount){
 HP=HP+amount;
 warning.message("HPが"+amount.ToString()+"回復した！");
-GameObject obj;
+GameObject obj;if (healparticle!=null)
+{
 obj=Instantiate(healparticle, transform.position, Quaternion.identity)as GameObject;
 obj.transform.parent=transform;
+    
+}
 }
 
 
@@ -105,28 +113,68 @@ public bool damage(int damage,bool crit=false,Collider coll=null,bool sequence=f
     {
         return false;
     }
+    cooldownstart();
 
     
-    cooldownstart();
+if (gameObject.root().pclass().itemcurrent.defences)
+{
+
+if (HitParticle!=null)
+{
+    HitParticle.Instantiate(coll?.ClosestPointOnBounds(transform.position)??transform.position);
+
+}
+if (hiteffect!=null)
+{
+hiteffect.Play(coll?.ClosestPointOnBounds(transform.position)??transform.position);
+}
+
+    keikei.Effspawn(keikei.effects[2],transform);
+    keikei.backforce(transform.root.gameObject,20);
+
+}
+
     if (coll!=null)
     { killer=coll.gameObject;
     }
   
    damage-=defence;
 damage = Mathf.Clamp(damage,1,9999);
- HP = HP-damage; 
-
+if (!muteki)
+{
+    HP = HP-damage; 
+}
+ 
+ if (damageshakepos)
+ {
+transform.DOPunchPosition(Vector3.one, 0.5f, 10, 0.4f);
+ }
+if (hpImage!=null)
+{hpImage.transform.DOPunchPosition(Vector3.one, 0.5f, 10, 0.1f);
+    hpImage.DOFillAmount((float)HP/maxHP, 0.5f).SetEase(Ease.InQuart);
+}
+if (anim!=null)
+{
+    
 anim.SetFloat("hp",HP);
 if (HP>0)
 {
 anim.SetTrigger("damage");
 anim.SetFloat("damagevalue",damage);
 }
+}
 
-FlickerModel.damagecolor();
-HitParticle?.Instantiate(coll?.ClosestPointOnBounds(transform.position)??transform.position);
-hiteffect?.Play(coll?.ClosestPointOnBounds(transform.position)??transform.position);
-     
+FlickerModel?.damagecolor();
+if (HitParticle!=null)
+{
+    HitParticle.Instantiate(coll?.ClosestPointOnBounds(transform.position)??transform.position);
+
+}
+if (hiteffect!=null)
+{
+hiteffect.Play(coll?.ClosestPointOnBounds(transform.position)??transform.position);
+}
+
 if (damageTextPrefab!=null)
 {GameObject dmgText = Instantiate(damageTextPrefab, transform.position, Quaternion.identity);
             dmgText.GetComponent<DamagePopup>().SetUp(damage);
@@ -134,7 +182,7 @@ if (damageTextPrefab!=null)
     if (crit)
       {
           dmgText.transform.localScale*=1.5f;
-          dmgText.GetComponent<Text>().material.color=Color.red;
+          dmgText.GetComponent<TextMesh>().color=Color.red;
           keikei.Effspawns(0,gameObject.transform);
       }
 }
@@ -146,8 +194,7 @@ public virtual void OnDamage(int damage){
 }
 
 
-public void cooldownstart(){
-damagestop();
+public void cooldownstart(){ 
 cooldown=true;
 Time.timeScale=timeScale;
 Invoke("cooldownend",cooldowntime);
@@ -156,7 +203,6 @@ Invoke("cooldownend",cooldowntime);
 
 public void cooldownend(){
 Time.timeScale=1;
-recover();
     cooldown=false;
 }
 
@@ -206,10 +252,7 @@ public virtual void recover(){
     {
 
    HP = Mathf.Clamp(HP ,0,maxHP);
-   if (hpImage!=null)
-   {
-       hpImage.fillAmount = (float)HP/maxHP;
-   }if (hptext!=null)
+ if (hptext!=null)
    {
        hptext.text = name+maxHP+"/"+HP;
    }

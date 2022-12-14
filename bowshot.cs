@@ -85,9 +85,9 @@ if (auto)
                 Rigidbody ballRigidbody = bullet.GetComponent<Rigidbody>();
                 if (enemydamage)
                 { 
-                    bullet.AddComponent(typeof(enemydamage));
+                    bullet.AddComponent(typeof(attackunitychan));
        
-                     var a= bullet.GetComponent<enemydamage>();
+                     var a= bullet.GetComponent<attackunitychan>();
              a.damagevalue=(int)((damagevalue/3)+basepower);
              if (Boomerang)
              {

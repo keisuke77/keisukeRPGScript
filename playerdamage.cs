@@ -46,7 +46,7 @@ obj.GetComponent<hpcore>().damage(damagevalue,true,gameObject);
       }
         if (addforce)
 {
- obj.root().GetComponent<UnityChanControlScriptWithRgidBody>().AddForce(transform.forward*forcepower);
+ obj.PlayerAddForce(transform.forward*forcepower);
    
 }
 events.Invoke();

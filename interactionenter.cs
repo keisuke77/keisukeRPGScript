@@ -16,7 +16,6 @@ public interaction nowinteraction;
 
 void Start()
 {nowinteraction=firstinteraction;
-
 cooldowntime=1;
 }
 

@@ -1,9 +1,7 @@
-
- 
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
- using DG.Tweening;
+using DG.Tweening;
 public class AutoRotateCamera : MonoBehaviour {
  
     //　キャラクターのTransform
@@ -12,7 +10,6 @@ public bool ScrollWheel;
 [HideInInspector]
     public Transform camera;
 
-    [HideInInspector]
     public Transform charaLookAtPosition;
     
     public Transform defaultcharaLookAtPosition;
@@ -28,7 +25,7 @@ public float rotatesensvilty=20;
     private float cameraRotateSpeed = 90f;
  
  public Vector3 ControllPos;
-
+public bool dontmove;
 public float defaultdistance=15;
     [SerializeField]
     private LayerMask obstacleLayer;
@@ -43,7 +40,9 @@ public Transform Player;
 public float runclose=2;
  float _rotatesensvilty;
 public xyz nowxyz;
-Vector3 rotation;
+public Vector3 rotation;
+public bool Scaling; 
+public float scale;
  void Awake()
  {
 
@@ -110,10 +109,9 @@ SetMessage(messagetext,autoprocess);
 
 public void atractend(){ 
 charaLookAtPosition=defaultcharaLookAtPosition;
-if (defaultparent!=null)
-{
-Player=defaultparent.gameObject.root().transform;
-}
+
+Player=defaultcharaLookAtPosition.gameObject.root().transform;
+
 
 CameraSettingSet(defaultCameraSetting);
   transform.parent=defaultparent;  
@@ -174,6 +172,7 @@ var parent=camera.parent;
 		  rotaterate=0;
       camera.parent=parent;
 }
+
 public float yaxis=1.8f;
 public float rotateY;
 [Range(1,10)]
@@ -187,22 +186,23 @@ public void resetcamera(){
 public void recovercamera(){
  camera.parent=defaultparent;
  cameraMoveSpeed=2;
-
-
 }
 
 public void CameraControll(){
-
+if (dontmove)
+{
+  return;
+}
 if (rotation.x!=0||learping||allwaysmove)
 {
+float _distance=distance*scale;
    rotaterate+= (float)rotation.x*_rotatesensvilty;
     rotateY+= (float)rotation.y/10;
-    rotateY=Mathf.Clamp(rotateY,-rotateYrange,rotateYrange);
-
-     Vector3 vec=(new Vector3(Mathf.Sin(rotaterate)*distance,yaxis+rotateY,Mathf.Cos(rotaterate)*distance));
-
-        //　通常のカメラ位置を計算
-        var cameraPos = charaLookAtPosition.position+new Vector3(0,0,zpos) + (-charaLookAtPosition.forward * vec.z) + (Vector3.up * vec.y)+ (-charaLookAtPosition.right * vec.x);
+    float _rotateY=rotateY*scale;
+    _rotateY=Mathf.Clamp(_rotateY,-rotateYrange,rotateYrange);
+     Vector3 vec=(new Vector3(Mathf.Sin(rotaterate)*_distance,yaxis+_rotateY,Mathf.Cos(rotaterate)*_distance));
+Vector3 vecs=(-charaLookAtPosition.forward * vec.z) + (Vector3.up * vec.y)+ (-charaLookAtPosition.right * vec.x); //　通常のカメラ位置を計算
+        var cameraPos = charaLookAtPosition.position+(vecs);
         //　カメラの位置をキャラクターの後ろ側に移動させる
      if (camera.position==cameraPos)
 {
@@ -223,7 +223,13 @@ public bool learping;
  Vector3 direction;
 
     void Update() {
-    
+    if (Scaling)
+    {
+     scale= charaLookAtPosition.localScale.y;
+    }else
+    {
+      scale=1;
+    }
     if (keiinput!=null)
     {
       rotation=(Vector3)keiinput?.GetRotate();
@@ -233,8 +239,9 @@ direction=(Vector3)keiinput?.GetDpad();
 if (ScrollWheel)
 {
     
-zpos+= Input.GetAxis("Mouse ScrollWheel")*5;
-zpos=Mathf.Clamp(zpos,-20,20);
+distance+= Input.GetAxis("Mouse ScrollWheel")*5;
+distance=Mathf.Clamp(distance,-20,20);
+
 }
 
    
@@ -244,7 +251,8 @@ if (direction.y!=0&&!once)
   	angleReset();
 once=true;
 _rotatesensvilty=0;
-   distance/=runclose;rotateY/=runclose;
+   distance/=runclose;
+   rotateY/=runclose;
 }else if(direction.y==0&&once)
 {
     once=false;
@@ -271,7 +279,7 @@ CameraControll();
         //　スピードを考慮する場合
 if (lookat)
 {
-       camera.LookAt(charaLookAtPosition.position+ControllPos);
+       camera.LookAt(charaLookAtPosition.position+(ControllPos*scale));
 }
       }
 }

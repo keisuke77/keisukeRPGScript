@@ -4,27 +4,35 @@ using UnityEngine;
 
 public class effect : MonoBehaviour
 {
-    private float Jumppower;
 
-  
-public void jumpgive(GameObject obj ,float power,float effectduration){
 
-  Jumppower =  obj.GetComponent<UnityChanControlScriptWithRgidBody>().jumpPower;
+public int damagepower=10;
+ public float jumpeffectpower=10; 
+public void damage(GameObject obj){
+if (obj.GetComponent<hpcore>()!=null)
+{
+    obj.GetComponent<hpcore>().damage(damagepower);
+}
+}
+
+public void jumpForce(GameObject obj){
+// プレイヤーに風力与える
+if (obj.GetComponent<UnityChanControlScriptWithRgidBody>()!=null)
+{
+obj.GetComponent<UnityChanControlScriptWithRgidBody>().AddForce(Vector3.up*jumpeffectpower);
+}
+}
+
+
+public void jumpgive(GameObject obj ,float power,float effectduration=0){
+
+ float Jumppower =  obj.GetComponent<UnityChanControlScriptWithRgidBody>().jumpPower;
   obj.GetComponent<UnityChanControlScriptWithRgidBody>().jumpPower=power;
   
-   StartCoroutine(stopeffect(obj,effectduration));
+  if (effectduration>0)
+  {
+  keikei.delaycall(()=>jumpgive(obj,Jumppower),effectduration);
+  }
 }
 
-IEnumerator stopeffect(GameObject obj ,float delay) {  
-     Debug.Log("deb");
-     yield return new WaitForSeconds(delay);
-     Debug.Log("defyhb");
-     obj.GetComponent<UnityChanControlScriptWithRgidBody>().jumpPower=Jumppower;
-
-}
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

@@ -16,6 +16,7 @@ public class targetspawneffect : MonoBehaviour
     public int ondamage;
     public int squenceinterval;
     public int forcepower;
+   public Effekseer.EffekseerHandle handle;
 
     }
    public targeteffect[] targeteffects;
@@ -43,10 +44,10 @@ if(a.effect)
 {
     if (a.target!=null)
       {
-        a.target.gameObject.effecseer(a.effect,a.parent).SetRotation(Quaternion.Euler(a.rot));
+       a.handle= a.target.gameObject.PlayEffect(a.effect,a.parent).SetRotation(Quaternion.Euler(a.rot));
       }else
       {
-        a.part.Getbodypart().effecseer(a.effect,a.parent).SetRotation(Quaternion.Euler(a.rot));
+      a.handle= a.part.Getbodypart().PlayEffect(a.effect,a.parent).SetRotation(Quaternion.Euler(a.rot));
       }
 }
     
@@ -100,7 +101,7 @@ public void effekseerstop(int i){
     
       if (a.effect)
     {
-         a.target.gameObject.effecseerstop();
+         a.handle.Stop();
   
     } Destroy(box[i]);
   
@@ -108,10 +109,4 @@ public void effekseerstop(int i){
 }
 
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

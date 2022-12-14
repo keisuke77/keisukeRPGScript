@@ -15,7 +15,7 @@ public class hp : hpcore{
    public playerdeath playerdeath;
       public bool damageshake;
    		datamanage datamanage;
-      
+      public bool timeScale=true;
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,8 +38,8 @@ keikei.delaycall(()=>{nodamage=false;ac();},time);
       playerdeath=GetComponent<playerdeath>();
 if (hpImage!=null)
 {
-m_shiny=hpImage.gameObject.GetComponent<ShinyEffectForUGUI>();
 hpimagetrans=hpImage.GetComponent<Transform>();
+m_shiny=hpImage.gameObject.GetComponent<ShinyEffectForUGUI>();
 }  
     }
 
@@ -52,16 +52,10 @@ obj.transform.parent=transform;
 }
 
 public void hpitemheal(){
-
+  
     hpheal(itemuse.instance.Itemkind.GetPower());
     itemuse.instance.itemused();
 }
-         
-      
-
-
-
-
 
 
 public override void OnDamage(int damage)
@@ -70,10 +64,15 @@ public override void OnDamage(int damage)
      if (damageshake)
      {
 ShakeableTransform.m_shakeable.InduceStress((float)damage*shakepower);
-     }
-flashscrean?.damage();
-         
-
+     }if (flashscrean!=null)
+     {
+flashscrean?.damage();  
+     } 
+if (timeScale)
+{
+  Time.timeScale=0.2f;
+  keikei.delaycall(()=>Time.timeScale=1f,0.2f);
+}
      if (hpimagetrans!=null)
 {
      keikei.uijump(hpimagetrans,damage*6);
@@ -105,7 +104,6 @@ public override void OnDeath(){
     if (playerdeath!=null)
     {
         playerdeath.death();
- 
     }
 
 }

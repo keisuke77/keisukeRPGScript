@@ -95,7 +95,7 @@ itemusing=true;
 cooltime=0;
 Invoke("enduse",Itemkind.usetime);
   
- anim.gameObject.EffspawnPlayer(Itemkind.effect);
+ anim.gameObject.PlayEffect(Itemkind.effect,true);
       
 }
 
@@ -110,21 +110,6 @@ itemusing=false;
 }
 
 
-public bool moucing;
-void OnMouseEnter()
-{
-moucing=true;
-}
-void OnMouseExit()
-{
-   moucing=false;
-}
-
-public void equiped(){
-
-instance.itemused();
-
-}
 
 
 
@@ -236,9 +221,6 @@ break;
 keikei.itemnumtext(Itemkind,numbertext);
         }
 
-        if (moucing)
-        {
-          itemcurrent.selectText.text=Itemkind.GetItemName()+Itemkind.GetInformation();
-        }
+        
     }
 }

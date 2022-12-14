@@ -23,6 +23,10 @@ public Dictionary<string,int> restenemy;
 
 
 public void enemykill(string name){
+    if (!restenemy.ContainsKey(name))
+    {
+        return;
+    }
 restenemy[name]-=1;
 if (restenemy[name]==0)
 {

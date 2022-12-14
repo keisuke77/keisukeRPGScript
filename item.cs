@@ -12,10 +12,11 @@ public float speedup=0.1f;
    public Itemkind Itemkind;
    public bool instanceexiqitem;
    public bool rotate;
-  
+  public bool itemvanish=true;
     public int money=0;
     bool once;
     public bool jump;
+    public Vector3 force;
     // Start is called before the first frame update
     void Start()
     {
@@ -70,11 +71,19 @@ other.pclass().itemmanage.itemhavingcheck(Itemkind).itemuses();
         {
             jumpgive(other.gameObject,effectpower,effectduration);
         }
+        if (force!=Vector3.zero)
+        {
+            other.PlayerAddForce(force);
+        }
          
-      
-    }
+       if (itemvanish)
+    {
      Destroy(gameObject);
-       
+    } 
+
+
+    }
+   
     }
 
 void OnTriggerEnter(Collider obj)
@@ -85,6 +94,10 @@ void OnTriggerEnter(Collider obj)
         }
     
     
+          }
+void OnTriggerExit(Collider obj)
+{
+   once=false;
           }
 
 }

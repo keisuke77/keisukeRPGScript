@@ -15,6 +15,7 @@ public class playerdeath : MonoBehaviour
     public movelift movelift;
     public Canvas deathcanvas;
     Animator anim;
+    public GameObject particle;
     public CameraSetting deathcamera;
        // Start is called before the first frame update
    void Start() {if (deathcanvas!=null)
@@ -43,12 +44,18 @@ public void death(){
 
 
        gameObject.GetComponent<playerclass>().AutoRotateCamera.lerpatractcamera(transform,7);
-       
- keikei.Effspawn(effect,transform);
-    once=true;  keikei.delaycall(()=>gametransition(),3f);
+       if (effect!=null)
+       {
+        keikei.Effspawn(effect,transform);
+       }
+if (particle!=null)
+{
+    particle.Instantiate(gameObject.transform);
+}
+     once=true;  keikei.delaycall(()=>gametransition(),3f);
    
     deathcanvas?.enabled(true);
-   
+
 }
 
 bool gametransitiononce;

@@ -29,15 +29,13 @@ public static bool mine;
   public underwater bodyunderwater;
    public LayerMask targetLayer;
 		public bool stop=false;
-		public float gravity=9;       //重力の大きさ
-    public int defencepower;
+		public float gravity=9;  
 	float t=0;
 	float damagetime;
 	mp mp;
 	public charges charges;
     public bool rotateonly;
     public bool attackkeycode;
-public Effekseer.EffekseerEffectAsset difenceeffect;
 		public float animSpeed = 1.5f;				// アニメーション再生速度設定
 		public float lookSmoother = 3.0f;			// a smoothing setting for camera motion
 		public bool useCurves = true;				// Mecanimでカーブ調整を使うか設定する
@@ -69,7 +67,6 @@ public bool damaged=false;
 		private GameObject cameraObject;	// メインカメラへの参照
 	RaycastHit slideHit;
 	public bool isSliding;
-	public bool defences;
 	public GameObject canvasios;
 	public keiinput keiinput;
 	public bool _isGrounded;
@@ -82,13 +79,8 @@ public float groundtime;
 public xyz defaultxyz;
 public xyz nowxyz;
 	public GameObject ControlObj;
-		// アニメーター各ステートへの参照		// キャラにアタッチされるアニメーターへの参照
-		private AnimatorStateInfo currentBaseState;	
-		static int locoState = Animator.StringToHash ("Base Layer.Locomotion");
-		static int jumpState = Animator.StringToHash ("Base Layer.Jump");
-		static int restState = Animator.StringToHash ("Base Layer.Rest");
-			static int idleState = Animator.StringToHash ("Base Layer.Idle");
 	
+	itemcurrent itemcurrent;
 private int time=0;
 
 public void damage(){
@@ -114,12 +106,12 @@ public void damageheal(){
 	
 	}
 	}
-	public void truebool(string name){
-		anim.SetBool(name,true);
-	}public void falsebool(string name){
-		anim.SetBool(name,false);
+
+	
+	void LateStart()
+	{
+		controller.enabled=false;
 	}
-	itemcurrent itemcurrent;
 	 void Awake()
 	{
 	UpdateControlObj();
@@ -163,49 +155,14 @@ nowxyz=defaultxyz;
 			keikei.Allplayer.Add(gameObject);
 		 charges=new charges(gameObject);
 		 itemcurrent=gameObject.pclass().itemcurrent;
-			
+			defaultstepOffset=controller.stepOffset;
 AutoRotateCamera.nowxyz=nowxyz;
 			 keiinput=gameObject.pclass().keiinput;
-			 playeremitter=gameObject.root().GetComponent<Effekseer.EffekseerEmitter>();
 			
 	
-	//メインカメラを取得する
-			cameraObject = GameObject.FindWithTag ("MainCamera");
-			// CapsuleColliderコンポーネントのHeight、Centerの初期値を保存する
-			orgColHight = col.height;
-			orgVectColCenter = col.center;
-
-			
 		}
 
-Effekseer.EffekseerEmitter playeremitter;
-Effekseer.EffekseerHandle handle;
 hp hp;
-public void defence(){
-  
-handle = playeremitter.Play(difenceeffect);
-rotateonly=true;//形式上
-anim.SetBool("defence",true);
-hp.defence=500;
-defences=true;
-}
-public void defence(int defencepowers){
-  
-handle = playeremitter.Play(difenceeffect);
-rotateonly=true;//形式上
-anim.SetBool("defence",true);
-hp.defence=defencepowers;
-defences=true;
-}
-public void defenceend(){
-
-	handle.Stop();
-	anim.SetBool("defence",false);
-	rotateonly=false;
-	hp.defence=defencepower;
-    defences=false;
-}
-
 
 
 	 void jumps(){
@@ -226,6 +183,7 @@ public void defenceend(){
 		stop=true;
 
 	}
+
 public void animcancell(){
 
 	anim.Play("Idle");
@@ -257,6 +215,10 @@ if (rigidcontroll)
 {
  StartCoroutine(AddForces(force));
 }
+if (gameObject.pclass()!=null)
+{
+	gameObject.pclass().AutoRotateCamera.distance*=2;
+}
 }
 
 IEnumerator AddForces(Vector3 force)
@@ -266,18 +228,17 @@ var forcepart=force/10;
 	
 	while (forcepart.sqrMagnitude<force.sqrMagnitude)
 	{
-		controller.Move(temp);
+		forceValue=temp;
 forcepart+=temp;
 
 yield return new WaitForSeconds(0.0001f);
 	}
-
+forceValue=Vector3.zero;
+gameObject.pclass().AutoRotateCamera.distance/=2;
 	yield return null;
 }
 
 public void freehandattack(){
-	
-
 anim.SetFloat("swordmode", 0);
 charges.chargepower("attack");
 if (keiinput.guard)
@@ -293,13 +254,7 @@ if (keiinput.guardup)
      }
            
         
-     if (once1)
-{defenceend();
-  once1=false;
-}
-   
-
-   
+    
 }
 
 bool once1;
@@ -353,12 +308,16 @@ if(bodyunderwater.iswater)return;
 anim.SetBool("sky", false);
 anim.SetBool("fall", false);
 }else{
+if (controller.velocity.y<0)
+{
 falling();
+}
+
 
 } 
 
 }
-
+public bool objrotate;
 public Vector3 LastMoveValue;
 public void MoveInput(){
 
@@ -366,16 +325,26 @@ if (stop)
 {h=0;v=0;
 	return;
 }
-
+if (keiinput!=null)
+{
+	
 Vector2 dpad= keiinput.GetDpad();
 h = dpad.x;	
 v = dpad.y;	
- 
+}
 h=h.NotMini();
 v=v.NotMini();
-if (v==0)
+
+if (objrotate)
+{
+	AutoRotateCamera.rotaterate=0;
+	AutoRotateCamera.rotation=Vector3.zero;
+}else
+{
+	if (v==0)
 {
 	h=0;
+}
 }
 
 if (keiinput.dashduring)
@@ -401,9 +370,9 @@ anim.SetFloat ("DirectionXdirectionXYZ", h);
 public float GetDirection(directionXYZ directionXYZ){
 switch (directionXYZ)
 {
-	case directionXYZ.front: return forward;
+	case directionXYZ.front: return forward*movespeed;
 		break;case directionXYZ.height: return height;
-		break;case directionXYZ.horizon: return h;
+		break;case directionXYZ.horizon: return h*movespeed;
 		break;
 	default:return 0;
 		break;
@@ -465,7 +434,7 @@ return velocity;
 }
 
 
-
+public Vector3 forceValue;
 
     public Vector3 lookDirectionXdirectionXYZ { get; private set; }
 
@@ -485,7 +454,7 @@ public float falldamage;
 damaged=true;
 anim.SetBool("wakeup",false);
 }
-
+float defaultstepOffset;
 		// 以下、メイン処理.リジッドボディと絡めるので、FixedUpdate内で処理を行う.
 		void FixedUpdate ()
 		{	
@@ -499,7 +468,10 @@ if (transform.grounddistances(targetLayer).debug() >10)
 	_isGrounded=true;
 }
 
-
+if (controller!=null)
+{
+	controller.stepOffset=defaultstepOffset*transform.localScale.y;
+}
 
 if (itemcurrent==null)
 {
@@ -518,7 +490,7 @@ if (anim.GetBool("dead"))
 MoveInput();
 　　
 
-		 LastMoveValue=	CalcVelocity() * Time.deltaTime*movespeed;
+		 LastMoveValue=	CalcVelocity() * Time.deltaTime*transform.localScale.x;
 		if (rigidcontroll)
 		{
 			rb.velocity=LastMoveValue*2;
@@ -528,7 +500,7 @@ MoveInput();
 		{
 			controller.enabled=true;
 	rb.isKinematic=true;
- controller.Move(LastMoveValue/60);
+ controller.Move(LastMoveValue/60+forceValue);
 
 		}
 			// 上下のキー入力でキャラクターを移動させる
@@ -547,11 +519,5 @@ jumps();
 		
 Transform trans;
 
-		// キャラクターのコライダーサイズのリセット関数
-		void resetCollider ()
-		{
-			// コンポーネントのHeight、Centerの初期値を戻す
-			col.height = orgColHight;
-			col.center = orgVectColCenter;
-		}
+
 	}

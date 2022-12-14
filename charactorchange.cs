@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 [System.Serializable]
 public class character{
+	public RuntimeAnimatorController anicon;
 public string name;
 public int power=3;
 public GameObject bone;
@@ -23,14 +24,16 @@ foreach (var characterss in characters)
       characterss.bone.SetActive(false);
 	characterss.mesh.SetActive(false);
       	}
-			
+			if (anicon!=null)
+			{
+				 charactorchange.anim.runtimeAnimatorController=anicon;
+			}
 	bone.SetActive(true);
 	mesh.SetActive(true);
     charactorchange.anim.avatar=avatar;
     charactorchange.weapons.transform.parent=righthand.transform;
     keikei.transformenter(charactorchange.weapons.transform,weaponstransform);
 }
-
    }
 
 public enum charactername{
@@ -106,7 +109,7 @@ m_DropOptions.Add(item.name);
 	if (DropDown!=null)
 	{
 		DropDown.ClearOptions();
- DropDown.AddOptions(m_DropOptions);	
+ DropDown.AddOptions(m_DropOptions);
 		
 	}
 

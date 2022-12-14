@@ -11,10 +11,7 @@ public class DoTween : MonoBehaviour
      bool    autoStart;
 
 void Play(){
-transform.DOLocalMove(move,speed).SetRelative(true);
-transform.DOLocalRotate(rot,speed).SetRelative(true);
-transform.DOScale(Scale,speed).SetRelative(true);
-
+    DOTweenScriptable.Play(transform);
 }
   
     void Start()

@@ -30,14 +30,17 @@ public warpdata warpdata;
 public Transform animpos;
 public shopset shopset;
 public bool atractcamera;
+public bool multcamera;
 public RandomItemkind RandomItemkind;
+public CameraSetting CameraSetting;
 public bool once;
 public bool endvanish;
 public int count;
 public Itemkind needitem;
 public Itemkind Itemkind;
+public bool playerstop;
 public interactionsuceess suceeesaction;
-
+public bool lookat;
 playerclass playerclass;
 
 
@@ -89,9 +92,10 @@ return;
     
 
 
-
-obj.root().boolset(animstringbool);
-      
+if (animstringbool!=null)
+{
+obj.root().boolset(animstringbool);   
+}
       if (suceeesaction.interactiontext!="")
       {
    interactionenter.nowinteraction=(interaction)suceeesaction;
@@ -110,7 +114,10 @@ obj.root().boolset(animstringbool);
       {
         warpdata.warps(obj);
       }
-    
+    if (lookat)
+    {
+    interactionenter.gameObject.transform.LookAt( playerclass.gameObject.transform);
+    }
       if (RandomItemkind!=null)
       {
         playerclass.itemmanage.Randomgive(RandomItemkind,true);
@@ -137,7 +144,13 @@ if (messagetext!="")
    playerclass.AutoRotateCamera.SetMessageAtractCamera(interactionenter.gameObject.transform,messagetext,()=>{kaiwaendevents.Invoke();
       playerclass.AutoRotateCamera.atractend();}
       ,autoprocess);
+      playerclass.AutoRotateCamera.CameraSettingSet(CameraSetting);
    
+}else if(multcamera)
+{keikei.multcamera.m_gameObjects[0]=playerclass.gameObject;
+keikei.multcamera.m_gameObjects[1]=interactionenter.gameObject;
+keikei.multcamera.GetComponent<Camera>().enabled=true;
+  playerclass.message.SetMessagePanel(messagetext,false,null,()=>keikei.multcamera.GetComponent<Camera>().enabled=false); 
 }else
 {
    playerclass.AutoRotateCamera.SetMessage(messagetext,true);

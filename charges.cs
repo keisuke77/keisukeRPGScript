@@ -6,6 +6,7 @@ public class charges {
  public Animator anim;
 public bool charge;
 public keiinput keiinput;
+Effekseer.EffekseerHandle handle;
  /// <summary>
  /// 
  /// Start is called on the frame when a script is enabled just before
@@ -26,7 +27,7 @@ if (charge)
 anim.SetFloat("chargepower",chargevalue); 
      charge=false;
      chargeeffonce=false;    
- anim.gameObject.EffspawnPlayerStop();
+ handle.Stop();
 anim.gameObject.GetComponent<UnityChanControlScriptWithRgidBody>().stop=false;
 }
      
@@ -41,7 +42,7 @@ anim.gameObject.playerstop();
 if (chargevalue>1&&!chargeeffonce)
 {
 
-      anim.gameObject.EffspawnPlayer(keikei.chargeeffect);
+     handle= anim.gameObject.PlayEffect(keikei.chargeeffect,true);
 chargeeffonce=true;
 }
 if (chargevalue>5)
