@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 66e2658b6f846db4c8f80e3770f424ad
+guid: a8fe9ff43037dba4fbd3417ed00e4a7c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playmodesetting: {fileID: 11400000, guid: 5cbbaccdfb9897e4ab246ab9a81b9389, type: 2}
+  - attackbutton: {instanceID: 0}
+  - jumpbutton: {instanceID: 0}
+  - throwbutton: {instanceID: 0}
+  - inputsetting: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

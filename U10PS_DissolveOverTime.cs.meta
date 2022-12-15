@@ -1,9 +1,12 @@
 fileFormatVersion: 2
-guid: 28539711df1bae84280c71393808b331
+guid: b0a79f9448ab67c48bbdcd70545a354d
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - dissolve: {fileID: 11400000, guid: dfddfe8c780232846a458015ae2a516b, type: 2}
+  - flatShader: {fileID: 4800000, guid: 88fccc7e0f9aac04dbeececa377ae3de, type: 3}
+  - blood: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
