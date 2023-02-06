@@ -3,36 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+namespace ItemSystem
+{
+  
 public class itemmanage : MonoBehaviour
 { int a=0;
     // Start is called before the first frame update
   public iteminventory playeriteminventory;
-   
+     
+    public Itemkind noitem;
     public itemuse[] inventorymember;
 /// <summary>
 /// Start is called on the frame when a script is enabled just before
 /// any of the Update methods is called the first time.
 void Awake()
-{
+{keikei.noitem=noitem;
     gameObject.pclass().itemmanage=this;
    playeriteminventory=gameObject.acessdata().saveiteminventory;
 }
 void Start()
 { 
 imagecreate();
-}
-
-
-public void Randomgive(RandomItemkind RandomItemkind){
-
-    Itemkind Itemkind=RandomItemkind.GetRandomOne();
-    additem(Itemkind);
-}
-
-public void Randomgive(RandomItemkind RandomItemkind,bool addmessage){
-
-    Itemkind Itemkind=RandomItemkind.GetRandomOne();
-    additem(Itemkind,addmessage);
 }
 
 public void additem(Itemkind Itemkind){
@@ -124,4 +115,5 @@ a++;
 }
     
           
+}
 }

@@ -58,9 +58,11 @@ objlist[active].GetComponent<Collider>().isTrigger=true;
 trigeronoff.obj=objlist[active].GetComponent<Collider>();
 
 }
+//投げたアイテムを回収するときにそのアイテムを拾えるようにする処理
+
 if (objlist[active].GetComponent<interactionenter>()!=null)
 {
-	objlist[active].GetComponent<interactionenter>().nowinteraction.Itemkind=gameObject.pclass().itemcurrent.Itemkind;
+objlist[active].GetComponent<interactionenter>().nowinteraction.Itemkind=gameObject.pclass().itemcurrent?.Itemkind;
 }
 }
 	// Update is called once per frame

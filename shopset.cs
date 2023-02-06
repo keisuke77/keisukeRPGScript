@@ -1,6 +1,7 @@
 using UnityEngine;using UnityEngine.UI;
 
 
+using ItemSystem;
 
 [CreateAssetMenu(fileName = "shopset", menuName = "shop")]
 public class shopset : ScriptableObject

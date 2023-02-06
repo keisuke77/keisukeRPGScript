@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+namespace ItemSystem
+{
+  
 public class itemcurrent : MonoBehaviour
 {public Itemkind Itemkind;
 iteminventory playeriteminventory;
@@ -15,7 +19,6 @@ public GameObject Player;
  bool once1;
  Image image;
  data data;
- public movelift movelift;
  objectchange objchange;
  public bool changecamera;
   hp hp;
@@ -38,7 +41,7 @@ keiinput keiinput;
     {
      	 gameObject.pclass().itemcurrent=this; 
            instance=this;
-            playeremitter=gameObject.root().GetComponent<Effekseer.EffekseerEmitter>();
+            playeremitter=gameObject.pclass().emitter;
 			
     }
 
@@ -57,7 +60,7 @@ keiinput keiinput;
         playeriteminventory=data.saveiteminventory;
         Player=gameObject.root();
         objchange= Player.GetComponent<objectchange>();
-        UnityChanControlScriptWithRgidBody=Player.GetComponent<UnityChanControlScriptWithRgidBody>();
+        UnityChanControlScriptWithRgidBody=gameObject.pclass().UnityChanControlScriptWithRgidBody;
         image=GetComponent<Image>();
         hp=Player.GetComponent<hp>();
 itemmanage.imagecreate();  
@@ -130,7 +133,7 @@ objchange.objhide();
     Itemkind=Itemkinds;
 
 if (Itemkind.GetKindOfItem().ToString()=="Weapon"){
-warning.message(Itemkind.GetItemName()+"を装備した");
+warning.instance?.message(Itemkind.GetItemName()+"を装備した");
 Invoke("weapontriggerSet",1f);
 resistanceimage.enabled=true;
 backresistanceimage.enabled=true;
@@ -184,7 +187,7 @@ numbertexts();
 if (Itemkind.GetResistance()<=0&&Itemkind!=keikei.noitem)
 { 
      Itemkind.Resitance=Itemkind.oriResitance;
-warning.message(Itemkind.GetItemName()+"が壊れた！");
+warning.instance?.message(Itemkind.GetItemName()+"が壊れた！");
      
      removeitem();
     
@@ -218,20 +221,23 @@ public Effekseer.EffekseerEffectAsset difenceeffect;
     public int defencepower;
 
 public void defence(int defencepowers=500){
-  
+  if (defences)
+  {
+     return;
+  }
 handle = playeremitter.Play(difenceeffect);
-gameObject.root().GetComponent<UnityChanControlScriptWithRgidBody>().rotateonly=true;
+gameObject.pclass().playerMovePram.rotateonly=true;
 anim.SetBool("defence",true);
-hp.defence=defencepowers;
+hp.defence+=defencepowers;
 defences=true;
 }
 public void defenceend(){
      handle.Stop();
 	anim.SetBool("defence",false);
-gameObject.root().GetComponent<UnityChanControlScriptWithRgidBody>().rotateonly=false;
+gameObject.pclass().playerMovePram.rotateonly=false;
 if (hp!=null)
 {
-     hp.defence=defencepower;
+     hp.defence=hp.defaultdefencepower;
 }
 	  defences=false;
 }
@@ -415,13 +421,14 @@ public void arture(GameObject bow){
       bowshot.basepower=Itemkind.GetPower();
         if (keiinput.attack)
         {
-             UnityChanControlScriptWithRgidBody.objrotate=true;
+gameObject.pclass().playerMovePram.objrotate=true;
 bowcharge=true;
 anim.SetBool("bow",true);
 bowshot.damagevalue=0;
 
         } else if (keiinput.attackup)
-        {UnityChanControlScriptWithRgidBody.objrotate=false;
+        {
+gameObject.pclass().playerMovePram.objrotate=false;
           if (Itemkind.optionget()==1)
           {
             bowshot.danyaku=true;
@@ -460,11 +467,12 @@ if (keiinput.Throw)
 {
      
 if (Itemkind==noitem){
-warning.message("投げるアイテムがない");
+warning.instance?.message("投げるアイテムがない");
      return;
 }
 anim.SetBool("throw",true);
 }
          }
       
+}
 }

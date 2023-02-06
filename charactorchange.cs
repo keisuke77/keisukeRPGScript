@@ -17,7 +17,7 @@ public GameObject lefthand;
 public GameObject rightfoot;
 public GameObject leftfoot;
 public transformdata weaponstransform;
-public void Set(charactorchange charactorchange,character[] characters){
+public void Set(charactorchange charactorchange,List<character> characters){
 
 foreach (var characterss in characters)
 	{
@@ -32,8 +32,13 @@ foreach (var characterss in characters)
 	mesh.SetActive(true);
     charactorchange.anim.avatar=avatar;
     charactorchange.weapons.transform.parent=righthand.transform;
-    keikei.transformenter(charactorchange.weapons.transform,weaponstransform);
-}
+	
+	//武器の装着
+	if (weaponstransform!=null&&charactorchange.weapons!=null)
+	{
+		keikei.transformenter(charactorchange.weapons.transform,weaponstransform);
+	}
+    }
    }
 
 public enum charactername{
@@ -52,14 +57,18 @@ public interface GetBodyPart
 public class charactorchange : MonoBehaviour,GetBodyPart
 {public GameObject footsmoke;
 	public Dropdown DropDown;
-data data;
    public GameObject weapons;
    public delegate void hides();
 public Animator anim;
-   public character[] characters;
+   public List<character> characters;
     // Start is called before the first frame update
 public Text text;
- public int active=0;
+public int active=0;
+string temptext;
+int tempactive=-1;
+int hairetucheck;
+public List<string> m_DropOptions;
+		
 	//　メインカメラ
 	public GameObject GetRightHand(){
 		return characters[active].righthand;
@@ -77,21 +86,22 @@ void OnDisable()
 {
 	this.enabled=true;
 }
-	
-public List<string> m_DropOptions;
-			
+		
 	void Awake()
 	{
 		tempactive=-1;
-		
+		if (gameObject.pclass()!=null)
+		{
+			gameObject.pclass().charactorchange=this;
 		}
+
+		}
+
 void Start()
-{ data=gameObject.acessdata();
-		active=data.charactor;
-	
-		if (anim==null)
+{       
+if (anim==null)
 {
-    anim=GetComponent<Animator>();
+    anim=gameObject.cclass().anim;
 }
         //DropDownの要素にリストを追加
        	foreach (character item in characters)
@@ -109,7 +119,7 @@ m_DropOptions.Add(item.name);
 	if (DropDown!=null)
 	{
 		DropDown.ClearOptions();
- DropDown.AddOptions(m_DropOptions);
+        DropDown.AddOptions(m_DropOptions);
 		
 	}
 
@@ -141,20 +151,16 @@ if (text!=null)
 {
 text.text=characters[Mathf.Abs(num)].name;
 }
-data.charactor=Mathf.Abs(num);
 }
 
 
-string temptext;
-int tempactive=-1;
-int hairetucheck;
 	// Update is called once per frame
 	void LateUpdate() { 
 		
 if (active!=tempactive)
 {
 	tempactive=active;
-	charactorchanger(active%(characters.Length));
+	charactorchanger(active%(characters.Count));
 }
 	
     

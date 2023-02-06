@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class forcetest : MonoBehaviour
+public class ForceAllowKeyDown : MonoBehaviour
 { 
     [SerializeField]
     private float       m_power         = 0.0f;
@@ -8,6 +8,8 @@ public class forcetest : MonoBehaviour
     private Vector3     m_powerDir      = Vector3.zero;
     [SerializeField]
     private Rigidbody[] m_rigidbodies   = null;
+
+    public KeyCode key;
 
     private void FixedUpdate()
     {
@@ -17,7 +19,7 @@ public class forcetest : MonoBehaviour
 	    float v = Input.GetAxis ("Vertical");
         	m_powerDir.x = h;
             m_powerDir.z = v;
-        if(Input.GetKey(KeyCode.Space))
+        if(key.keydown())
         { Debug.Log(m_powerDir.x);
 
             foreach( var rigidbody in m_rigidbodies )

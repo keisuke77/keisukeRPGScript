@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using ItemSystem;
 
 public class onmouceenter : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler
 {

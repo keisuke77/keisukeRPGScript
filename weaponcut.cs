@@ -12,9 +12,5 @@ public void sta(){
 public void end(){
     LineBlade.end(keikei.player.GetComponent<objectchange>().Getobj().transform.GetChild(0).transform);
 }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

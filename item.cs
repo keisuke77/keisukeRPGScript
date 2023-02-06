@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using ItemSystem;
 public class item : effect
 {
    public UnityEvent eve;
@@ -44,7 +45,7 @@ once=true;
     }
     if (speedup!=0)
     {
-        other.GetComponent<UnityChanControlScriptWithRgidBody>().movespeed+=speedup;
+       gameObject.pclass().playerMovePram.movespeed+=speedup;
      
        
     }
@@ -62,7 +63,7 @@ if (Itemkind!=null)
 { Itemkind.add(other);
     if (instanceexiqitem)
     {
-other.pclass().itemmanage.itemhavingcheck(Itemkind).itemuses();
+other.pclass().itemmanage.itemhavingcheck(Itemkind)?.itemuses();
     }
      
    

@@ -19,17 +19,20 @@ attack=true;
 var crit = Random.value <= CritRate;
 if (crit)
 {
-  warning.message(enemyname+"のクリティカル攻撃！");
+  warning.instance?.message(enemyname+"のクリティカル攻撃！");
 }
 			var damagevalues = crit == true ? (int)(damagevalue * CritMultiplier) : damagevalue;
 			damagevalues+=basedamagevalue;
-      
-      
-      if (other.root().GetComponent<hpcore>().damage((int)damagevalues,crit,other.Collider(),sequencehit))
+      if (GetComponent<Animator>()!=null)
+      { Animator anim=GetComponent<Animator>();
+anim.speed=0;  
+keikei.delaycall(()=>anim.speed=1,0.1f);
+      }
+       if (other.pclass().hpcore.damage((int)damagevalues,crit,other.Collider(),sequencehit,gameObject))
       {
   if (force)
   {
-other.root().GetComponent<IForceIdle>().AddForce(transform.forward*forcepower);
+other.gameObject.PlayerAddForce(transform.forward*forcepower);
   }
       }
  

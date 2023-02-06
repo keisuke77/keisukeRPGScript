@@ -5,10 +5,7 @@ using UnityEngine;
 public class pause : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  
 private void OnEnable()
 {
     
@@ -19,9 +16,5 @@ private void OnDisable()
     
     Time.timeScale=1;
 }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 }

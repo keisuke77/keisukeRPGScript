@@ -25,7 +25,7 @@ public UnityEngine.Events.UnityEvent events;
             ondamage(other.gameObject);
 if (trip)
 {
-    other.gameObject.root().GetComponent<Animator>().SetTrigger("trip");
+    other.gameObject.cclass().anim.SetTrigger("trip");
 }
 
     
@@ -39,7 +39,7 @@ if (!obj.proottag())
     return;
 }
     
-obj.GetComponent<hpcore>().damage(damagevalue,true,gameObject);
+obj.pclass().hpcore.damage(damagevalue,true,gameObject);
       if (hitdespawn)
       {
           Destroy(gameObject);

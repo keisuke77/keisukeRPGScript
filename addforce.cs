@@ -3,63 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class addforce : MonoBehaviour
-{public bool relatemass;public bool forwardforce;
+{
+    public bool relatemass;
+    public bool forwardforce;
     Rigidbody rb;
-    public float power =10f;
-    public Vector3 direction ;
-    
-public bool randomdirection;
-public ForceMode mode;
+    public float power = 10f;
+    public Vector3 direction;
+    public bool repeat;
+    public bool randomdirection;
+    public ForceMode mode;
 
-public Vector3 force(){
- Vector3 forces;
-  if (relatemass)
-    { 
-        forces=direction*power*rb.mass;
-   
-    }else
-    {
-         forces=direction*power;
-   
-    }
-    return forces;
-}
     // Start is called before the first frame update
     void Start()
     {
-        rb=GetComponent<Rigidbody>();
-        
+        rb = GetComponent<Rigidbody>();
+    }
+
+    public void AddForce()
+    {
         if (forwardforce)
-   {
-      direction=transform.forward; 
-   }
-   if (randomdirection)
-   {
-       direction=keikei.randomvector();
+        {
+            direction = transform.forward;
+        }
+        if (randomdirection)
+        {
+            direction = keikei.randomvector();
+        }
+        if (relatemass)
+        {
+            direction *= rb.mass;
+        }
 
-   }
+        if (mode == ForceMode.Impulse)
+        {
+            rb.AddForce(direction * power, mode);
+        }
+    }
 
-    if (mode==ForceMode.Impulse)
+    void FixedUpdate()
     {
-         rb.AddForce(force(),ForceMode.Impulse);
- 
-    }
-    }
+        if (!repeat)
+        {
+            return;
+        }
+        if (Mathf.Approximately(Time.timeScale, 0f))
+        {
+            return;
+        }
 
-void FixedUpdate()
-{if (Mathf.Approximately(Time.timeScale, 0f)) {
-		return;
-	}
-   
-   
-  
-   if (mode==ForceMode.Force)
-    {
-        rb.AddForce(force(),ForceMode.Force);
- 
+        if (mode == ForceMode.Force)
+        {
+            AddForce();
+        }
     }
-   
-}
     // Update is called once per frame
-    
 }

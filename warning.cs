@@ -8,21 +8,25 @@ using System.Linq;
 using TMPro;
 public class warning : MonoBehaviour
 {
-   public static GameObject[] messages;
+   public GameObject[] messages;
    public TextMeshProUGUI TextMeshProUGUI;
-   public static GameObject news;
+   public GameObject news;
    
-public static string newstext;
-   
+public string newstext;
+   public static warning instance;
 
-public static void warn(string text){
+public void warn(string text){
 message(text,1);
 
 
 }
-public static GameObject obj;
-public static float Ypos;
-public static void message(string text,int number=0){
+void Awake()
+{
+  instance=this;
+}
+public GameObject obj;
+public float Ypos;
+public void message(string text,int number=0){
 
 if (obj==null)
 {
@@ -50,7 +54,7 @@ Destroy(obj,4);
 
 } 
 
-public static void newsadd(string text){
+public void newsadd(string text){
 
 
 newstext+=text;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System.Linq;
-
+using ItemSystem;
 
 public class keikei : MonoBehaviour
 { 
@@ -23,16 +23,12 @@ public class keikei : MonoBehaviour
 public static Effekseer.EffekseerEffectAsset chargeeffect;
 public static GameObject player;
 public static AutoRotateCamera AutoRotateCamera;
-public static U10PS_DissolveOverTime playerdissolve;
 public static Transform dokan;
-public static Effekseer.EffekseerEmitter playeremitter;
 public static Itemkind[] allitems;
 public static GameObject treasure;
 public static GameObject vanisheffect;
 public static Animator playeranim; 
 public static GameObject explosion;
-
- public static datamanage datamanage; 
 public static Effekseer.EffekseerEffectAsset[] effects;
 public static Effekseer.EffekseerHandle handle;
 public static data playerdata;
@@ -50,7 +46,6 @@ public static message message;
 public static Itemkind noitem;
 public static List<GameObject> Destroyobjs;
 public static hp hp;
-public static UnityChanControlScriptWithRgidBody UnityChanControlScriptWithRgidBody;
 public static float atractskiptime;
 public static Camera cameramain;
 public static Transform cameradefaultparent;
@@ -77,17 +72,7 @@ public static void destroy(GameObject obj,float time){
 
 Destroy(obj,time);
 }
-public static void SetMessageAtractCamera(Transform trans,string messagetext){
-SetMessageAtractCamera(trans,messagetext,null);
-}
-public static void SetMessageAtractCamera(Transform trans,string messagetext,System.Action action){
 
-foreach (var item in AutoRotateCameraAll)
-{item.SetMessageAtractCamera(trans,messagetext,action);
-
-}
-
-}
   public static void Destroys(Component com){
 
 Destroy(com);
@@ -101,20 +86,7 @@ Destroy(com);
   }
 
 
-  public static void SetMessage(string mes){
-SetMessage(mes,true);
-  }
-  public static void SetMessage(string mes,bool auto){
-
-SetMessage(mes,auto,null);
-  }  
-  public static void SetMessage(string mes,bool auto,Sprite icon){
-
-foreach (var item in allMessage)
-{
-  item.SetMessagePanel(mes,auto,icon);
-}
-  }
+  
 
 
 
@@ -253,22 +225,9 @@ public static void posing(){
 
 
 
- public static void gametransition(GameObject obj,string scenename){
-    
- ac=delegate(){
-   fadescene(scenename);
-   
-  obj.GetComponentIfNotNull<charactorchange>().characterhide();
-      };
-    
-        obj.GetComponent<U10PS_DissolveOverTime>().dissolve.dissolveOut(ac);
-      
-      
-  }
 
   public static void fadescene(string scenename){
     SceneManage.Instance.FadeInoutScene(scenename);
-
   } 
 public static void uijump(Transform rectTransform,float power){  
   if (DOTween.IsTweening(rectTransform))  
@@ -300,36 +259,29 @@ public static void uiloopjump(Transform rectTransform,float power){
 
 
   
- public static Itemkind nowitem(){
-   
-return keikei.player.GetComponent<datamanage>().itemcurrent.Itemkind;
- }
  public static void destroy(GameObject obj){Destroy(obj);}
     
 public static void playerstop(GameObject obj){
-var tempUnityChanControlScriptWithRgidBody= obj.GetComponentIfNotNull<UnityChanControlScriptWithRgidBody>();
-
-
-tempUnityChanControlScriptWithRgidBody.stop=true;
-   tempUnityChanControlScriptWithRgidBody.h=0;
-    tempUnityChanControlScriptWithRgidBody.v=0;
-    
-tempUnityChanControlScriptWithRgidBody.anim.SetFloat ("Speed", 0);		// Animator側で設定している"Speed"パラメタにvを渡す
-tempUnityChanControlScriptWithRgidBody.anim.SetFloat ("Direction", 0); 
-
+var playerMovePram= obj.GetComponentIfNotNull<playerMovePram>();
+playerMovePram.stop=true;
 }
+
+
 public static void Allplayerstop(){
-foreach (var item in Allplayer)
-{
-  playerstop(item);
-}
+  
 }
 
    public static void dissolvedeath(GameObject obj,System.Action action=null)
     {
-     var disolve= obj.GetComponentIfNotNull<U10PS_DissolveOverTime>();
-disolve.dissolvevanish(action);
-  
+   
+     if (obj.GetComponentIfNotNull<U10PS_DissolveOverTime>()!=null)
+     {
+obj.GetComponentIfNotNull<U10PS_DissolveOverTime>().dissolvevanish(action);
+     }else
+     {
+      action();
+      Destroy(obj);
+     }
     }
 
     
@@ -359,11 +311,7 @@ handle = Effekseer.EffekseerSystem.PlayEffect(effect, trans.position);
 
     } 
     
-       public static Effekseer.EffekseerHandle Effspawns(int num,Transform trans){
-      var effect=effects[num];
-     return Effspawn(effect,trans);
-
-    }
+     
     
 
     public static void atractcameraend(){
@@ -866,15 +814,16 @@ action();
       
           
           
-          public static void backforce(GameObject objss,float power){
+          public static void backforce(GameObject objss,float power=10){
 
 Rigidbody rb=objss.GetComponentIfNotNull<Rigidbody>();
+if (rb!=null)
+{
 rb.AddForce(-(objss.transform.forward*power),ForceMode.Impulse);
-          }public static void backforce(GameObject objss){
+}   
 
-Rigidbody rb=objss.GetComponentIfNotNull<Rigidbody>();
-rb.AddForce(-(objss.transform.forward*10),ForceMode.Impulse);
-          }
+    }
+
           
           public static void dotweenmove(GameObject target,Vector3 vec,float speed,AnimationCurve type){
        target.transform.DOMove(vec, speed).SetRelative(true).SetEase(type).SetLoops(-1, LoopType.Yoyo);
@@ -913,9 +862,7 @@ Destroy(child.gameObject);
  public static void playerset()
 {
     playeranim=player.GetComponent<Animator>();
-    UnityChanControlScriptWithRgidBody=player.GetComponent<UnityChanControlScriptWithRgidBody>();
-playerdissolve=player.GetComponent<U10PS_DissolveOverTime>();
-
+   
 }
    
 public static void rotate(GameObject target){

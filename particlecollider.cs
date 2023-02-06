@@ -83,11 +83,11 @@ if (enemyhitobjspawn==true)
         }
  
         }
-else if (other.gameObject.proottag())
+else if (other.proottag())
         { 
             
             
-            obj=other.gameObject.transform.root.gameObject;
+            obj=other.root();
              
             var unitycon = obj
             .GetComponent<UnityChanControlScriptWithRgidBody>();
@@ -128,7 +128,7 @@ if (explosionspeed!=0)
         var velocity = (other.transform.position - transform.position).normalized * explosionspeed;
     // プレイヤーに風力与える
     
-unitycon?.AddForce(velocity);
+obj.PlayerAddForce(velocity);
 
 
 	  

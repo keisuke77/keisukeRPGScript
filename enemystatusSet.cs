@@ -10,7 +10,7 @@ enemyattack enemyattack;
     void Awake()
     {  
   GetComponent<navchaise>().Setwaza(enemystatus.waza);
-  GetComponent<enemyhp>().HP=enemystatus.HP;
+  GetComponent<enemyhp>().basehp.HP=enemystatus.HP;
   GetComponent<enemyhp>().enemyname=enemystatus.name;
   GetComponent<enemyhp>().deathmessage=enemystatus.endmessage;
   GetComponent<enemyhp>().icon=enemystatus.icon;

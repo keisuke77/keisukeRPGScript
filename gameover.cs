@@ -10,7 +10,7 @@ public class gameover : MonoBehaviour
 void OnTriggerEnter(Collider other)
 {if (other.gameObject.tag=="MainCamera"||other.gameObject.root().tag=="Player")
 {
-   other.root().GetComponent<playerdeath>().death();
+   other.gameObject.pclass().hpcore.OnDeath();
   
     
 }else{

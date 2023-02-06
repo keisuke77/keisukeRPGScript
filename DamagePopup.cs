@@ -20,14 +20,22 @@ public class DamagePopup : MonoBehaviour
         textColor = textC;
         textMesh.text = amount.ToString();
         textMesh.color = textColor;
-    }public void SetUp(int amount)
+    }
+public void SetUp(int amount)
     {
         textMesh = GetComponent<TextMesh>();
         playerTransform = Camera.main.transform;
         textColor = defaultcolor;
         textMesh.text = amount.ToString();
         textMesh.color = textColor;
-    
+    }
+public void SetUp(string st)
+    {
+        textMesh = GetComponent<TextMesh>();
+        playerTransform = Camera.main.transform;
+        textColor = defaultcolor;
+        textMesh.text = st;
+        textMesh.color = textColor;
     }
 
 	private void LateUpdate()

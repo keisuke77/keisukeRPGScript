@@ -28,8 +28,14 @@ public void TalkEvent(GameObject obj){
  
          Animator.SetBool("communication",true);
          Animator.SetBool("talk",true);
-         obj.root().GetComponent<UnityChanControlScriptWithRgidBody>().stop=true;
-         obj.pclass().AutoRotateCamera.SetMessage(messagetext,()=>{obj.root().GetComponent<UnityChanControlScriptWithRgidBody>().stop=false;kaiwaendevents.Invoke();});
+         obj.pclass().playerMovePram.stop=true;
+         obj.pclass().message?.SetMessagePanel(messagetext,false,null,()=>{
+            
+            obj.pclass().playerMovePram.stop=true;
+            kaiwaendevents.Invoke();
+            
+            });
+
 button.gameObject.SetActive(false);
 }
 

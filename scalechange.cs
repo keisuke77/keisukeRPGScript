@@ -21,9 +21,4 @@ objs[i].scalechange(1/scale,speed);
 
 }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

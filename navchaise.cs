@@ -7,7 +7,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(NavMeshAgent))]    
 [RequireComponent(typeof(enemyhp))]
-[RequireComponent(typeof(U10PS_DissolveOverTime))]
 [RequireComponent(typeof(Animancer.AnimancerComponent))]
 
 
@@ -35,11 +34,10 @@ public class navchaise : MonoBehaviour,IForceIdle
 Animator anim;
 public bool chaising;
 public string message;
-enemyhp enemyhp;
+basehp enemyhp;
 bool once=false;
 bool onces=false;
 public bool alwayschaise;
-Transform trans;
 public bool playerlook;
    public bool patrol;
   public Vector3 currentpatrollposition;
@@ -69,11 +67,11 @@ if (player)
          point=gameObject.NearserchTag("Enemy").root().transform;
         }else
         {
-            point=gameObject.NearserchTag("Player").root().transform;
+            point=gameObject.NearserchTag("Player").pclass().PlayerControll.transform;
            
         }
 
-if (point.GetComponent<Animator>().GetBool("dead"))
+if (point.gameObject.cclass().anim.GetBool("dead"))
             {
                 point=transform;
             }
@@ -84,24 +82,23 @@ int nowhp;
     // Start is called before the first frame update
     void Start()
     {
-        
-trans=GetComponent<Transform>();
-agent = GetComponent<NavMeshAgent>();
-anim = GetComponent<Animator> ();
-enemyhp=GetComponent<enemyhp>();
-nowhp=enemyhp.HP;
-              if (player)
+         if (player)
               {
                    alwayschaise=false;
 gameObject.Childremovecomponentandattach<enemyattack,attackunitychan>();
 gameObject.removecomponentandattach<enemyhp,hp>().HP=nowhp;
               }
+agent = GetComponent<NavMeshAgent>();
+anim = GetComponent<Animator> ();
+enemyhp=GetComponent<enemyhp>().basehp;
+nowhp=enemyhp.HP;
+             
 
     }
 
 
 public void randomposition(){
-currentpatrollposition=trans.position+ keikei.randomvectornotY(patrollarea);
+currentpatrollposition=transform.position+ keikei.randomvectornotY(patrollarea);
     agent.destination=currentpatrollposition;
 
 }
@@ -140,8 +137,9 @@ once=true;
 
 
  void meleeattack(){
-
-               
+if (!anim.GetCurrentAnimatorStateInfo(0).IsTag("Idle"))
+return;
+              
 foreach (var item in waza.wazalist)
 {
     if (item.wazachange!=null)
@@ -149,12 +147,17 @@ foreach (var item in waza.wazalist)
         waza=item.wazachange;
     }
     
-    if (keikei.kakuritu(item.kakuritu)&&!anim.GetBool(item.name)&&item.mindis*item.mindis<=meleedistance&&meleedistance<=item.maxdis*item.maxdis)
+    if (keikei.kakuritu(item.kakuritu)&&!anim.GetBool(item.name)&&item.mindis*item.mindis<=agentdestinationdis&&agentdestinationdis<=item.maxdis*item.maxdis)
 {
-    anim.SetBool(item.name,true); 
-    item.motions.Play(gameObject);
+    anim.SetBool(item.name,true);
     anim.SetTrigger(item.name); 
-    break;
+   
+    if (item.motions!=null)
+    {
+         item.motions.Play(gameObject);
+   
+    }
+      break;
 }
 
 }
@@ -164,9 +167,8 @@ foreach (var item in waza.wazalist)
 
 public void meleemode(){
  
-          meleedistance = (trans.position- agent.destination).sqrMagnitude;
-       
-if (meleedistance<0.01f)
+         
+if (agentdestinationdis<0.01f)
     {
         if (agentdestinationdis>waza.minwalk)
     {
@@ -196,7 +198,7 @@ if(!onces){ keikei.delaycall(firstdiscover,1f);
 
 public void firstdiscover(){
 
-   trans.LookAt(point);
+   transform.LookAt(point);
    anim.SetBool(firstanim,true);
    
                 if (discoverevent!=null)
@@ -213,15 +215,14 @@ if (meleecamerachange)
                 {
                     message.CreateMesImage(gameObject,mesPos);
                     
-                    message m= point.gameObject.acessmessage();
+                    message m= point?.gameObject?.acessmessage();
                       
                     if (m!=null)
                       {
                          if (firstatractcamera)
                     {
-                         m.cameradistance=cameradistance;
-                       
-                    m.gameObject.pclass().AutoRotateCamera.SetMessageAtractCamera(transform,message,null,false);
+
+                    m.gameObject.pclass().SetMessageAtractCamera(transform,message,null,false,cameradistance);
                     }else
                     {
                         m.SetMessagePanel(message,true,icon);
@@ -244,7 +245,7 @@ if (meleecamerachange)
 
        }
     patroltime-=Time.deltaTime;
- Vector3 Apos = trans.position;
+ Vector3 Apos = transform.position;
       
 patroldistance=agent.remainingDistance;
 if (agent.remainingDistance<2||patroltime<0)
@@ -268,14 +269,14 @@ if (point==null)
         if (agent.remainingDistance<waza.maxwalk||agent.remainingDistance>waza.minwalk)
         {
             
-             anim.SetBool("walk",true); 
+             anim.FloatTo("speed",1); 
               
         }else
         {
-             anim.SetBool("walk",false); 
+             anim.FloatTo("speed",0); 
                   
         }
-        agentdestinationdis=(point.position-trans.position).sqrMagnitude;
+        agentdestinationdis=(point.position-transform.position).sqrMagnitude;
 
 
         

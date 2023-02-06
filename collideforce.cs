@@ -26,7 +26,7 @@ Vector3 force;
         }
       
         
-col.gameObject.root().GetComponent<UnityChanControlScriptWithRgidBody>().AddForce(force);
+col.gameObject.PlayerAddForce(force);
         
     }  
 }}

@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
+using ItemSystem;
+
+
 public class itemsell : MonoBehaviour
-{int b;
-  datamanage datamanage;   
+{int b; 
 public Itemkind Itemkind;
 GameObject child;
 Text explaintext;
@@ -13,7 +15,6 @@ void Start()
 {
   playeriteminventory=keikei.playeriteminventory;
 GetComponent<Image>().sprite=Itemkind.GetIcon();
-  datamanage=keikei.datamanage;
   explaintext=gameObject.transform.GetChild(0).GetComponent<Text>();
   placetext=gameObject.transform.GetChild(1).GetComponent<Text>();
   placetext.text=Itemkind.getplace().ToString()+"G";
@@ -65,7 +66,7 @@ shop.opener.acessdata().money>=Itemkind.getplace())
    return true;
 }else
 {
-warning.warn("所持金が足りません");
+warning.instance?.warn("所持金が足りません");
    return false;
 }
 }

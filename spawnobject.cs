@@ -38,7 +38,7 @@ switch (bodyparts)
   return animator.GetComponent<charactorchange>().GetLeftFoot().gameObject;
      break;
    case bodypart.weapons:
- return keikei.player.GetComponent<objectchange>().Getobj().gameObject;  
+ return animator.GetComponent<objectchange>().Getobj().gameObject;  
    break;case bodypart.defaults:
  return animator.gameObject;  
    break;

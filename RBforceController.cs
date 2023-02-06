@@ -3,7 +3,7 @@ using System.Collections;
 
 // Add a thrust force to push an object in its current forward
 // direction (to simulate a rocket motor, say).
-public class forces : MonoBehaviour
+public class RBforceController : MonoBehaviour
 {
     public float rotateSpeed;
     public float thrust;

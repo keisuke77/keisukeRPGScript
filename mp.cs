@@ -18,7 +18,7 @@ void Update()
 public bool mpuse(float value){
 if (MP<value)
 {
-    warning.warn("mpが足りません");
+    warning.instance?.warn("mpが足りません");
     return false;
 }else
 {

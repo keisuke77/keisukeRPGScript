@@ -20,13 +20,10 @@ void Start()
     {   if (other.proottag()){
 
      
-      if(keiinput.interaction&&keikei.message.isEndMessage&&cooldown)
+      if(keiinput.interaction&&keikei.message.mesNum==0&&cooldown)
         {if (messagetext!="")
-        { message.events=kaiwaendevents;
-        
-             keikei.message.SetMessagePanel(messagetext,autoprocess);
-           
-           
+        { 
+             other.gameObject.pclass().message.SetMessagePanel(messagetext,autoprocess,null,()=>kaiwaendevents.Invoke());
         }
               
             cooldowntime=10;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using ItemSystem;
 
 public interface IDamagable
 {
@@ -25,8 +26,6 @@ public class enemyhp : hpcore
 
 
 public Sprite icon;
-    public GameObject deathparticle;
-    public Effekseer.EffekseerEffectAsset deatheffect;
     Effekseer.EffekseerHandle handle;
     public float camerachangetime=0;
   public UnityEvent events;
@@ -37,16 +36,15 @@ public itemdrops itemdrops;
 
 
 
- public override void SetUp(){
-
- }
 
 public override void OnDamage(int damage){
+  
 Itemkind item=itemcurrent.instance.Itemkind;
       	if (item!=null)
         {
           item.Resitance-=damage/10;
         }
+  
       
 anim.Play("allhit",0,0);
  
@@ -93,8 +91,8 @@ keikei.delaycall(()=>deathend(),6f);
    deathend();
 }
    
-        warning.message(enemyname+"を倒した！");
-keikei.SetMessage(deathmessage,true,icon);
+        warning.instance?.message(enemyname+"を倒した！");
+        killer.pclass().message.SetMessagePanel(deathmessage,true,icon);
     
   if (deatheffect!=null)
   {

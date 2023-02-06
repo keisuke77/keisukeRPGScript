@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
-
+using ItemSystem;
 
 
 [System.Serializable]
@@ -78,12 +78,16 @@ public void createinteraction(interactionenter interactionenter,GameObject obj){
 
 
     action=delegate(){
+      if (playerclass.itemcurrent!=null)
+      {
+        
 if (!(playerclass.itemcurrent.Itemkind==needitem||needitem==keikei.noitem)){
 
-warning.message(needitem.GetItemName()+"が必要だ");
+warning.instance?.message(needitem.GetItemName()+"が必要だ");
 return;
 }
 
+      }
 
  if (save)
     {
@@ -108,7 +112,7 @@ obj.root().boolset(animstringbool);
       }
       if (scenename!="")
       {
-        keikei.gametransition(obj.root(),scenename);
+        obj.pclass().gametransition(scenename);
       }
       if (warpdata!=null)
       {
@@ -120,7 +124,7 @@ obj.root().boolset(animstringbool);
     }
       if (RandomItemkind!=null)
       {
-        playerclass.itemmanage.Randomgive(RandomItemkind,true);
+        playerclass.itemmanage?.additem(RandomItemkind.GetRandomOne(),true);
 
       }
       if (shopset!=null)
@@ -128,7 +132,7 @@ obj.root().boolset(animstringbool);
       }
       if (Itemkind!=null)
       {
-        playerclass.itemmanage.give(Itemkind,true);
+        playerclass.itemmanage?.give(Itemkind,true);
 endvanish=true;
       }
      
@@ -141,7 +145,7 @@ interactionevent.Invoke();
 if (messagetext!="")
 {if (atractcamera)
 {
-   playerclass.AutoRotateCamera.SetMessageAtractCamera(interactionenter.gameObject.transform,messagetext,()=>{kaiwaendevents.Invoke();
+   playerclass.SetMessageAtractCamera(interactionenter.gameObject.transform,messagetext,()=>{kaiwaendevents.Invoke();
       playerclass.AutoRotateCamera.atractend();}
       ,autoprocess);
       playerclass.AutoRotateCamera.CameraSettingSet(CameraSetting);
@@ -153,7 +157,7 @@ keikei.multcamera.GetComponent<Camera>().enabled=true;
   playerclass.message.SetMessagePanel(messagetext,false,null,()=>keikei.multcamera.GetComponent<Camera>().enabled=false); 
 }else
 {
-   playerclass.AutoRotateCamera.SetMessage(messagetext,true);
+   playerclass.message.SetMessagePanel(messagetext,true);
   
 }
         

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+namespace ItemSystem
+{
+  
 public class uichangerselect : MonoBehaviour
 {
-
+//アイテムを選ぶ四角い奴
  public int active=0;
 public uichanger uichanger;
  public Button processors;
@@ -14,7 +17,6 @@ public uichanger uichanger;
  public KeyCode downkey;
 public KeyCode decidekey;
 public Text text;
-itemcurrent itemcurrent;
 	//　メインカメラ
 	
 	[SerializeField]
@@ -32,7 +34,6 @@ processors.onClick.AddListener(() => {add();});
 unprocessors.onClick.AddListener(() => {down();});
     }
     
-   itemcurrent=gameObject.pclass().itemcurrent;
 }
 void Start()
 { keiinput=gameObject.pclass().keiinput;
@@ -54,8 +55,8 @@ UIchanger();
 int oriactive;
 void UIchanger(){
 
-
-if (UIlist[active].transform.parent.gameObject.GetComponent<itemuse>().Itemkind)
+//アイテムが変更されたときテキストの更新
+if (UIlist[active].transform.parent.gameObject.GetComponent<itemuse>().Itemkind!=null)
 {
 	
 text.text=UIlist[active].transform.parent.gameObject.GetComponent<itemuse>().Itemkind.GetItemName();
@@ -72,7 +73,6 @@ oriactive=active;
 	{
 		UIs.SetActiveIfNotNull(false);
 	}	
-
 UIlist[active].SetActiveIfNotNull(true);
 
 
@@ -132,4 +132,5 @@ public void setup(){
 
 }
   
+}
 }

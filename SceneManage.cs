@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 
 public class SceneManage : Singleton<SceneManage>
-{
+{//必須クラス
+
     public string beforeScene;
       public void Awake()
     {

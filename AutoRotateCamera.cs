@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 public class AutoRotateCamera : MonoBehaviour {
  
-    //　キャラクターのTransform
-public message message;
+    
 public bool ScrollWheel;
 [HideInInspector]
     public Transform camera;
@@ -43,6 +42,9 @@ public xyz nowxyz;
 public Vector3 rotation;
 public bool Scaling; 
 public float scale;
+public bool learping;
+ Vector3 direction;
+
  void Awake()
  {
 
@@ -52,10 +54,8 @@ if (gameObject.proottag())
   gameObject.pclass().AutoRotateCamera=this;
 } 
  Player=gameObject.root().transform;   
-
-
 keikei.AutoRotateCameraAll=UnityEngine.Object.FindObjectsOfType(typeof(AutoRotateCamera))as AutoRotateCamera[];
-       keiinput=gameObject.pclass().keiinput;
+keiinput=gameObject.pclass().keiinput;
   
  }
 
@@ -81,31 +81,7 @@ void Start() {
 }
 
 
-  public void SetMessage(string mes,bool auto=false,Sprite icon=null){
 
-message.SetMessagePanel(mes,auto,icon);
-  }
-
-  public void SetMessage(string mes,System.Action action){
-
-message.action=delegate(){
-  action();
-};
-SetMessage(mes);
-  }
-
-
-public void SetMessageAtractCamera(Transform trans,string messagetext,System.Action action=null,bool autoprocess=false){
-
-lerpatractcamera(trans);
-
-message.action=delegate(){
-  atractend();
-  action();
-};
-SetMessage(messagetext,autoprocess);
-
-}
 
 public void atractend(){ 
 charaLookAtPosition=defaultcharaLookAtPosition;
@@ -147,23 +123,16 @@ distance=distances;
     learping=true;
 }
 
- public void lookchange(float time){
+ public void lookchange(float duration=1){
 
 distance*=-1;
-Invoke("lookchangeend",time);
- }
- public void lookchange(){
-
-distance*=-1;
-Invoke("lookchangeend",1f);
- }
- public void lookchangeend(){
-
-distance*=-1;
+keikei.delaycall(()=>distance*=-1,duration);
 
  }
+
 
 public void angleReset(){
+  //カメラの方向にプレイヤーの後ろを向ける
 var parent=camera.parent;
       camera.parent=null;
       Player.LookAt(camera,nowxyz.Gethight());
@@ -180,8 +149,6 @@ public float rotateYrange=1;
 public void resetcamera(){
  camera.parent=null;
  cameraMoveSpeed=0;
-
-
 }
 public void recovercamera(){
  camera.parent=defaultparent;
@@ -215,12 +182,6 @@ Vector3 vecs=(-charaLookAtPosition.forward * vec.z) + (Vector3.up * vec.y)+ (-ch
 }
 
 
-public bool learping;
-
-
-
-
- Vector3 direction;
 
     void Update() {
     if (Scaling)

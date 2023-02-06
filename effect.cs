@@ -17,17 +17,16 @@ if (obj.GetComponent<hpcore>()!=null)
 
 public void jumpForce(GameObject obj){
 // プレイヤーに風力与える
-if (obj.GetComponent<UnityChanControlScriptWithRgidBody>()!=null)
-{
-obj.GetComponent<UnityChanControlScriptWithRgidBody>().AddForce(Vector3.up*jumpeffectpower);
-}
+
+obj.PlayerAddForce(Vector3.up*jumpeffectpower);
+
 }
 
 
 public void jumpgive(GameObject obj ,float power,float effectduration=0){
 
- float Jumppower =  obj.GetComponent<UnityChanControlScriptWithRgidBody>().jumpPower;
-  obj.GetComponent<UnityChanControlScriptWithRgidBody>().jumpPower=power;
+ float Jumppower =  obj.pclass().playerMovePram.jumpPower;
+  obj.pclass().playerMovePram.jumpPower=power;
   
   if (effectduration>0)
   {

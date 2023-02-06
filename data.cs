@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using ItemSystem;
 
 
 [CreateAssetMenu(fileName = "data", menuName = "money")]
 public class data : ScriptableObject
 {
-    public string name;
-    public inputsetting inputsetting;
+public string name;
+public inputsetting inputsetting;
 public iteminventory saveiteminventory;
 public int money;
 public int HP;
@@ -45,7 +45,7 @@ public void addexp(int amount){
 deltaexp+=amount;
     exp+=amount;
 
-warning.message(amount.ToString()+"xpを獲得した");
+warning.instance?.message(amount.ToString()+"xpを獲得した");
      if ((nextexp-exp)<=0)
         {
             levelup();
@@ -56,7 +56,7 @@ keikei.delaycall(()=>addexp(exp-nextexp),2f);
 
  public int levelup(){
      
-warning.message("おめでとう！あなたはレベル"+level.ToString()+"になった！");
+warning.instance?.message("おめでとう！あなたはレベル"+level.ToString()+"になった！");
 
      nextexp=level*100;
      level++;

@@ -16,7 +16,7 @@ if (PlayerPrefs.GetInt(name)==0)
 PlayerPrefs.SetInt(name, 0);
 names=name;
 }else
-{warning.message("既にその名前は存在します");
+{warning.instance?.message("既にその名前は存在します");
    
 }
 

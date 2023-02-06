@@ -30,10 +30,10 @@ public void enemykill(string name){
 restenemy[name]-=1;
 if (restenemy[name]==0)
 {
-warning.message("クエストターゲット"+name+"を全て倒した！");
+warning.instance?.message("クエストターゲット"+name+"を全て倒した！");
 }else
 {
-warning.message("クエストターゲット"+name+"を倒した！\n残りは"+
+warning.instance?.message("クエストターゲット"+name+"を倒した！\n残りは"+
 restenemy[name]+"体だ！");
 }
 questclearcheck();
@@ -71,7 +71,7 @@ if (check<=0)
 }
 public void questclear(){
 keikei.playerdata.nowquest=null;
-warning.message(clearmessage,2);
+warning.instance?.message(clearmessage,2);
 keikei.playerdata.addexp(exp);
 keikei.playerdata.addmoney(money);
 itemdrops.itemdropers();

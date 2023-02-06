@@ -3,109 +3,107 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Coffee.UIExtensions;
+using DG.Tweening;
 
- 
-public class hp : hpcore{ 
-    Transform hpimagetrans;
+using ItemSystem;
+
+public class hp : hpcore
+{
+    
     public flashscrean flashscrean;
-    ShinyEffectForUGUI m_shiny;
     bool once;
-     public itemdrop itemdrop;
-    public float shakepower=1;
-   public playerdeath playerdeath;
-      public bool damageshake;
-   		datamanage datamanage;
-      public bool timeScale=true;
+    public itemdrop itemdrop;
+    public float shakepower = 1;
+    public bool damageshake;
+    datamanage datamanage;
+    public bool timeScale = true;
+    AutoRotateCamera AutoRotateCamera;
+    public Canvas deathcanvas;
     // Start is called before the first frame update
-    void Awake()
+
+
+
+    public override void SetUp()
     {
-        if (HP==0)
+       datamanage = GetComponent<datamanage>();
+        AutoRotateCamera = gameObject.pclass()?.AutoRotateCamera;
+    }
+
+  
+    public void hpitemheal()
+    {
+        hpheal(itemuse.instance.Itemkind.GetPower());
+        itemuse.instance.itemused();
+    }
+
+    public override void OnDamage(int damage)
+    {
+        gameObject
+            .pclass()
+            .PlayerMoveAction(() => anim.gameObject.transform.LookAt(killer.transform));
+        Debug.Log($"ggggg");
+        if (damageshake)
         {
-         HP=maxHP;   
+            ShakeableTransform.m_shakeable.InduceStress((float)damage * shakepower);
         }
-    }     
-
-  public void muteki(float time,System.Action ac=null){
-nodamage=true;
-keikei.delaycall(()=>{nodamage=false;ac();},time);
-  }
-
-    public override void SetUp(){
-      
-        hpImage=gameObject.FindAllChild("hpimage")?.GetComponentIfNotNull<Image>();
-       hptext=gameObject.FindAllChild("hptext")?.GetComponentIfNotNull<Text>();
-       datamanage=GetComponent<datamanage>();
-      playerdeath=GetComponent<playerdeath>();
-if (hpImage!=null)
-{
-hpimagetrans=hpImage.GetComponent<Transform>();
-m_shiny=hpImage.gameObject.GetComponent<ShinyEffectForUGUI>();
-}  
+        if (flashscrean != null)
+        {
+            flashscrean?.damage();
+        }
+    
     }
 
-public override void hpheal(int amount){
-HP=HP+amount;
-warning.message("HPが"+amount.ToString()+"回復した！");
-GameObject obj;
-obj=Instantiate(healparticle, transform.position, Quaternion.identity)as GameObject;
-obj.transform.parent=transform;
-}
-
-public void hpitemheal(){
-  
-    hpheal(itemuse.instance.Itemkind.GetPower());
-    itemuse.instance.itemused();
-}
-
-
-public override void OnDamage(int damage)
-{
-      
-     if (damageshake)
-     {
-ShakeableTransform.m_shakeable.InduceStress((float)damage*shakepower);
-     }if (flashscrean!=null)
-     {
-flashscrean?.damage();  
-     } 
-if (timeScale)
-{
-  Time.timeScale=0.2f;
-  keikei.delaycall(()=>Time.timeScale=1f,0.2f);
-}
-     if (hpimagetrans!=null)
-{
-     keikei.uijump(hpimagetrans,damage*6);
-     }
-
- 
-   if (HitParticle!=null)
-     {
-         Instantiate(HitParticle,transform.position,transform.rotation);
-  
-     } if (hiteffect!=null)
-     {
-        keikei.Effspawn(hiteffect,transform);
-     }
-
-
-     
-    }
-   
-
-
-public override void OnDeath(){
-
-      if (itemdrop!=null)
+    public override void OnDeath()
     {
-    keikei.itemspawnexplosion(gameObject,itemdrop);
-    }
-   
-    if (playerdeath!=null)
-    {
-        playerdeath.death();
+        if (once)
+            return;
+        once = true;
+        if (itemdrop != null)
+        {
+            keikei.itemspawnexplosion(gameObject, itemdrop);
+        }
+        if (datamanage != null)
+        {
+            datamanage.HPreset();
+        }
+        warning.instance?.message("死んでしまった！");
+        gameObject.pclass().playerMovePram.stop = true;
+        gameObject.acessmessage().SetMessagePanel("体力がなくなってしまった！！", true);
+        if (AutoRotateCamera != null)
+        {
+            AutoRotateCamera.lerpatractcamera(transform, 7);
+            DOTween.To(() => AutoRotateCamera.yaxis, (x) => AutoRotateCamera.yaxis = x, 20, 4f);
+        }
+
+        if (deatheffect != null)
+        {
+            keikei.Effspawn(deatheffect, transform);
+        }
+        if (deathparticle != null)
+        {
+            deathparticle.Instantiate(gameObject.transform);
+        }
+
+        if (deathcanvas != null)
+        {
+            deathcanvas.enabled(true);
+        }
+
+        keikei.delaycall(() => gametransition(), 3f);
     }
 
-}
-   
+    bool gametransitiononce;
+
+    public void gametransition()
+    {
+        if (gametransitiononce)
+            return;
+        gametransitiononce = true;
+
+        if (gamemanager.instance != null)
+        {
+            gamemanager.instance.gameend();
+        }
+        gameObject.pclass().gametransition("loss");
+    }
 }

@@ -16,11 +16,11 @@ public class keidragonbehavior : MonoBehaviour
     public List<GameObject> spawns;
 GameObject[] bukas;
  Transform trans;
-enemyhp enemyhp;
+basehp enemyhp;
    Animator anim;
     void Awake()
     {
-enemyhp=GetComponent<enemyhp>();
+enemyhp=GetComponent<enemyhp>().basehp;
 anim = GetComponent<Animator> ();
         navchaise=GetComponent<navchaise>();
 

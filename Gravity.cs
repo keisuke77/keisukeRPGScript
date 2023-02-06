@@ -12,8 +12,7 @@ public class Gravity : MonoBehaviour {
 	void Update () {
         Vector3 dir = (transform.position - planet.position).normalized;
 
-        GetComponent<UnityChanControlScriptWithRgidBody>().RotateGravity(dir);
-
+      
         transform.rotation = Quaternion.FromToRotation(transform.up, dir) * transform.rotation;
 	}
 }

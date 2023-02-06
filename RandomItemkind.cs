@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
- 
+using ItemSystem;
 [CreateAssetMenu(fileName = "ItemDataBase", menuName="CreateItemRandom")]
 public class RandomItemkind : ScriptableObject {
  int totalweight;
+
+
+
 	[SerializeField]
 	private List<itemrandomdata> itemrandomlist = new List<itemrandomdata>();
  

@@ -1,5 +1,6 @@
 using UnityEngine;using UnityEngine.UI;
 
+using ItemSystem;
 public class shop : MonoBehaviour
 {int a;
 public static Sprite sprites;
@@ -57,7 +58,7 @@ private void noactive() {
   
   Time.timeScale=1;
    
-  opener.root().GetComponent<UnityChanControlScriptWithRgidBody>().stop=false;
+  opener.pclass().playerMovePram.stop=false;
 }
 
 }

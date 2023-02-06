@@ -39,9 +39,5 @@ player.GetComponent<Rigidbody>().AddForce(Vector3.up*power,ForceMode.Impulse);
 
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 }

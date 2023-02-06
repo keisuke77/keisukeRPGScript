@@ -12,9 +12,9 @@ public class playerstop : StateMachineBehaviour
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {animator.GetComponent<UnityChanControlScriptWithRgidBody>().stop=true;
+    {animator.gameObject.pclass().playerMovePram.stop=true;
     } 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    {animator.GetComponent<UnityChanControlScriptWithRgidBody>().stop=false;
+    {animator.gameObject.pclass().playerMovePram.stop=false;
     }
 }

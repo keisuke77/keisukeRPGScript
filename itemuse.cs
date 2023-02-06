@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+
+namespace ItemSystem
+{
+  
 public class itemuse : MonoBehaviour
 {
    public Itemkind Itemkind;
@@ -17,14 +21,13 @@ public Text numbertext;
  public Image itemimage;
  public RectTransform rectTransform;
  public static bool itemusing;
- hp hp;
+ basehp hp;
  itemmanage itemmanage;
  datamanage datamanage;
  public dashgage dashgage;
- UnityChanControlScriptWithRgidBody UnityChanControlScriptWithRgidBody;
     // Start is called before the first frame update
    void Awake()
-   {hp=gameObject.root().GetComponent<hp>();
+   {hp=gameObject.root().GetComponent<hp>().basehp;
        itemimage=GetComponent<Image>();
       rectTransform=GetComponent<RectTransform>();
      numbertext=GetComponentInChildren<Text>();
@@ -43,10 +46,9 @@ void OnEnable()
         itemmanage=gameObject.pclass().itemmanage;
         datamanage=gameObject.pclass().datamanage;
         iteminventory=gameObject.getinventory();
-        UnityChanControlScriptWithRgidBody=Player.GetComponent<UnityChanControlScriptWithRgidBody>();
-         itemcurrent=gameObject.pclass().itemcurrent;
-        anim=Player.GetComponent<Animator>();
-
+        anim=gameObject.pclass().anim;
+        itemcurrent=gameObject.pclass().itemcurrent;
+      
     }
 
 
@@ -127,7 +129,7 @@ Itemkind.Remove(gameObject);
 public void itemuses(){
   
 if (itemusing)
-{warning.warn("現在アイテム使用中です"+((float)(Itemkind.usetime-cooltime)).ToString()+"秒後に使用可能");
+{warning.instance?.warn("現在アイテム使用中です"+((float)(Itemkind.usetime-cooltime)).ToString()+"秒後に使用可能");
     
   return;
 }
@@ -148,13 +150,13 @@ if (Itemkind.GetKindOfItem().ToString()=="Weapon"||Itemkind.GetKindOfItem().ToSt
 
 switch (Itemkind.GetItemName())
 {
-  case "薬草":if(hp.HP== hp.maxHP){warning.warn("HPはとっくに最大です");
+  case "薬草":if(hp.HP== hp.maxHP){warning.instance?.warn("HPはとっくに最大です");
     break;}
      instance=this;
 keikei.playeranim.SetTrigger("　");
         
-    break; case "炎上網":var firecircle= Instantiate(keikei.particles[9],keikei.player.transform.position,Quaternion.identity);
-        firecircle.transform.parent=keikei.player.transform;
+    break; case "炎上網":var firecircle= Instantiate(keikei.particles[9],gameObject.GetPlayerAnimator().transform.position,Quaternion.identity);
+        firecircle.transform.parent=gameObject.pclass().anim.gameObject.transform;
  itemused();
     
 break; case "変身の果実":
@@ -169,17 +171,17 @@ keikei.playeranim.SetTrigger("big");
      {
 if ( itemcurrent.Itemkind.optionget()==1)
 {
-    warning.warn("既に装填しています");
+    warning.instance?.warn("既に装填しています");
     return;
 }
        itemused();
        itemcurrent.Itemkind.optionset(1);
      }else{
 
-       warning.warn("このアイテムには使えません");
+       warning.instance?.warn("このアイテムには使えません");
      }
 
-    break; case "俊足性ドーピング": UnityChanControlScriptWithRgidBody.movespeed=Itemkind.GetPower();
+    break; case "俊足性ドーピング": gameObject.pclass().playerMovePram.movespeed=Itemkind.GetPower();
         
   itemused();
  
@@ -188,7 +190,7 @@ if ( itemcurrent.Itemkind.optionget()==1)
   
     break;
     case　"お肉":
-    if(dashgage.amount==1){warning.warn("気力はとっくに最大です");break;}
+    if(dashgage.amount==1){warning.instance?.warn("気力はとっくに最大です");break;}
     float a=(float)(Itemkind.GetPower()/100);
     dashgage.heal(a);
 itemused();
@@ -202,7 +204,7 @@ break;
     gameObject.pclass().itemuseplace.eve.Invoke();
   }else
   {
-  warning.warn("このアイテムはここでは使えません");
+  warning.instance?.warn("このアイテムはここでは使えません");
     
   }
   }
@@ -223,4 +225,5 @@ keikei.itemnumtext(Itemkind,numbertext);
 
         
     }
+}
 }

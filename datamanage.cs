@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
 using DG.Tweening;
-
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ItemSystem;
 public class datamanage : MonoBehaviour
 {
   
@@ -17,9 +17,8 @@ public class datamanage : MonoBehaviour
     public data nowdata;
     public bool firstdataload;
     public itemcurrent itemcurrent;
-    UnityChanControlScriptWithRgidBody UnityChanControlScriptWithRgidBody;
-    
-    
+    public charactorchange charactorchange;
+    playerMovePram playerMovePram;
     public void addmoney(int amount){
 
     data.addmoney(amount);
@@ -50,7 +49,7 @@ data.ios=onoff;
 public void save(){
 
 data.pos=gameObject.transform.position;
-gameObject.pclass().AutoRotateCamera.SetMessage("データをセーブしました");
+gameObject.pclass().message.SetMessagePanel("データをセーブしました");
 
 }
 
@@ -59,23 +58,26 @@ public void SetItemInventory(iteminventory iteminventory){
 data.saveiteminventory=iteminventory;
 
 }
-  private void Awake()
+   void Awake()
   {
- UnityChanControlScriptWithRgidBody=GetComponent<UnityChanControlScriptWithRgidBody>();
-            hp.HP=data.HP;
-        keikei.playeriteminventory=data.saveiteminventory;
+    gameObject.pclass().datamanage=this;
+  hp=  (hp)gameObject.cclass().hpcore;
+    playerMovePram=gameObject.pclass().playerMovePram;
+    hp.HP=data.HP;
+
+    keikei.playeriteminventory=data.saveiteminventory;
   }
 
  public void dataupdate(){
     
     if (itemcurrent!=null)
  {
-itemcurrent.defencepower=data.defence;
- }
-UnityChanControlScriptWithRgidBody.forwardSpeed=data.forwardSpeed;
-UnityChanControlScriptWithRgidBody.backwardSpeed=data.backwardSpeed;
-UnityChanControlScriptWithRgidBody.rotateSpeed=data.rotateSpeed;
+        hp.defaultdefencepower=data.defence;
         data.Itemkind=itemcurrent.Itemkind;
+ }
+playerMovePram.forwardSpeed=data.forwardSpeed;
+playerMovePram.backwardSpeed=data.backwardSpeed;
+playerMovePram.rotateSpeed=data.rotateSpeed;
  data.HP= hp.HP;
 if(data.HP==0){
     data.HP=hp.maxHP;
@@ -86,17 +88,18 @@ if(data.HP==0){
     { 
         if (firstdataload)
         {
-               keikei.PlayerEnterTransform(gameObject.root(),data.pos,data.rotation);
-        keikei.datamanage=gameObject.root().GetComponent<datamanage>();
+        keikei.PlayerEnterTransform(gameObject.root(),data.pos,data.rotation);
         //初期アイテムセット
         if (itemcurrent!=null)
         {
              itemcurrent.setitem(data.Itemkind);
         }
         }
-     
-      
-       
+        if (gameObject.pclass()?.charactorchange!=null)
+        {
+        charactorchange=gameObject.pclass()?.charactorchange;
+		charactorchange.active=data.charactor;
+        }
            
         
     }
@@ -113,7 +116,8 @@ public void HPreset(){
     // Update is called once per frame
     void Update()
     {       
-             nowdata=data;
+        nowdata=data;
+        data.charactor=charactorchange.active;
         dataupdate();
       
         }

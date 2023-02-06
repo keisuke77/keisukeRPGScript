@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
  
+namespace ItemSystem
+{
 [CreateAssetMenu(fileName = "ItemDataBase", menuName="CreateItemInventory")]
 public class iteminventory : ScriptableObject{
  
@@ -26,7 +28,7 @@ foreach (Itemkind items in myitemLists)
 	item.addnumber();
 	if (message)
 	{
-	   warning.message(item.GetItemName()+"をゲットした");
+	   warning.instance?.message(item.GetItemName()+"をゲットした");
     
 	}
 	    
@@ -39,13 +41,13 @@ if (myitemLists.Count<Listsize)
 myitemLists.Add(item);	
 if (message)
 	{
-	   warning.message(item.GetItemName()+"をゲットした");
+	   warning.instance?.message(item.GetItemName()+"をゲットした");
     
 	}
 return true;
 }else
 {
-warning.message("インベントリがいっぱいです",1);
+warning.instance?.message("インベントリがいっぱいです",1);
 return false;
 }
 	
@@ -84,4 +86,5 @@ public List<Itemkind> clearLists() {
 	public List<Itemkind> GetmyItemLists() {
 		return myitemLists;
 	}
+}
 }

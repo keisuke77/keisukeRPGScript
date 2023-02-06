@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using ItemSystem;
+
 public class itempickup : MonoBehaviour
 {
     public Itemkind Itemkind;

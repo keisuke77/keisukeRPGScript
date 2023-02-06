@@ -3,6 +3,9 @@ using UnityEngine.EventSystems;
 
 using System.Collections;
 using System.Collections.Generic;
+using ItemSystem;
+
+
 public class DragObj : MonoBehaviour,IDragHandler,IBeginDragHandler,IEndDragHandler
 {
     private Vector2 prevPos;
@@ -34,12 +37,12 @@ if (once)
 
     if (other.gameObject.tag=="sell")
     {
-        iteminventory.Remove(GetComponent<itemuse>().Itemkind);
+        iteminventory.Remove(GetComponent<itemuse>()?.Itemkind);
     }
 
 
     Debug.Log("nuduifewqernweuiaojeoiw3neujeaiojiw");
-        if (other.gameObject.GetComponent<itemuse>().Itemkind!=null&&GetComponent<itemuse>().Itemkind!=null)
+        if (other.gameObject.GetComponent<itemuse>()?.Itemkind!=null&&GetComponent<itemuse>()?.Itemkind!=null)
         {myitemLists.replace<Itemkind>(other.gameObject.GetComponent<itemuse>().Itemkind,GetComponent<itemuse>().Itemkind);
        iteminventory.myitemLists=myitemLists;
        itemmanage.imagecreate();

@@ -15,11 +15,12 @@ public class autochat : MonoBehaviour
     public List<string> endtext;
     public autochat instance;
     public bool auto;
-private void Start()
+    public GameObject aite;
+void Start()
 {if (auto)
 {
      texts.text=Getchat();
-    keikei.SetMessage(Getchat(),false);
+    aite.pclass().message.SetMessagePanel(Getchat(),false);
     
 }instance=this;
    

@@ -11,29 +11,28 @@ using System.Collections.Generic;
 /// <summary>
 /// GameObjectの拡張クラス
 /// </summary>
-public static class InstanceExtension{
-
-
-public static void spawn(this Collider col,Transform trans,GameObject effect){
-
-if (col!=null)
+public static class InstanceExtension
 {
-Vector3 hitPos = col.ClosestPointOnBounds(trans.position);
-keikei.instantiate(effect,hitPos,Quaternion.identity);
-  if (hitPos==null)
-  {
-      keikei.instantiate(effect,col.transform.position,Quaternion.identity);
-  }
-}
-}
+    public static void spawn(this Collider col, Transform trans, GameObject effect)
+    {
+        if (col != null)
+        {
+            Vector3 hitPos = col.ClosestPointOnBounds(trans.position);
+            keikei.instantiate(effect, hitPos, Quaternion.identity);
+            if (hitPos == null)
+            {
+                keikei.instantiate(effect, col.transform.position, Quaternion.identity);
+            }
+        }
+    }
 
-public static GameObject Instantiate(this GameObject obj,Transform trans){
+    public static GameObject Instantiate(this GameObject obj, Transform trans)
+    {
+        return keikei.instantiate(obj, trans.position, trans.rotation);
+    }
 
- return keikei.instantiate(obj,trans.position,trans.rotation);
-}
-public static GameObject Instantiate(this GameObject obj,Vector3 trans){
-
- return keikei.instantiate(obj,trans,Quaternion.identity);
-}
-  
+    public static GameObject Instantiate(this GameObject obj, Vector3 trans)
+    {
+        return keikei.instantiate(obj, trans, Quaternion.identity);
+    }
 }

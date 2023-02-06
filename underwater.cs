@@ -20,7 +20,7 @@ public Animator anim;
     // Start is called before the first frame update
     void Start()
     {
-        anim=GetComponent<Animator>();
+        anim=gameObject.cclass().anim;
         
     }
 

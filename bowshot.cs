@@ -103,7 +103,7 @@ if (auto)
                 }else
                 {if (automuch)
                 {
-                    bullet.transform.forward=keikei.player.transform.forward;
+                    bullet.transform.forward=gameObject.NearserchTag("Player").transform.forward;
                    
                 }
                      bullet.AddComponent(typeof(playerdamage));

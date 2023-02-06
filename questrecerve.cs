@@ -98,20 +98,20 @@ public void questdecide(){
 quest quest=quests[num];
 if (data.nowquest==quest)
 {
-    warning.warn("既におなじクエストを受注しています");
+    warning.instance?.warn("既におなじクエストを受注しています");
 }
 
 if (data.money>quest.needmoney&&data.level>quest.needlevel)
 {
     data.nowquest=quest;
-    warning.message("クエストの受注に成功しました",2);
+    warning.instance?.message("クエストの受注に成功しました",2);
 
     data.money-=quest.needmoney;
     quest.queststart();
     questpanelclose();
 }else
 {
-     warning.message("クエストの受注条件を満たしていません",1);
+     warning.instance?.message("クエストの受注条件を満たしていません",1);
 
 }
 

@@ -17,7 +17,7 @@ keikei.Allplayerstop();
 keikei.playerdata.pos=pos;
 keikei.playerdata.rotation=rotation;
 datamanage.pos=true;
-    keikei.gametransition(other.root(),scenename);
+    other.pclass().gametransition(scenename);
 
     }
  

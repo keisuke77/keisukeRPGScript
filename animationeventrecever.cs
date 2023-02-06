@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using ItemSystem;
 public class animationeventrecever : MonoBehaviour
 {
 [SerializeField]
@@ -13,11 +14,6 @@ public class animationeventrecever : MonoBehaviour
 
 [SerializeField]
     hp hp;
-[SerializeField]
-    scalechangeplayer scalechangeplayer;
-
-[SerializeField]
-    U10PS_DissolveOverTime U10PS_DissolveOverTime;
 
    
 public void hpitemheal(){
@@ -33,11 +29,7 @@ transform.DOScale( itemuse.instance.Itemkind.GetPower(),(float)itemuse.instance.
  );
 }
     
-    public void charactorchangeitem(){
-
-        U10PS_DissolveOverTime.dissolvecharachange();
-        itemuse.instance.itemused();
-    }
+   
     public void camerashake(){
 
         
@@ -50,36 +42,32 @@ keikei.shake();
     }
 public void equip(){
 
-itemuse.instance.itemused();
+itemuse.instance?.itemused();
 itemuse.instance=null;
 }
 
 public void mahoueffect(){
 
-itemcurrent.mahoueffect();
+itemcurrent?.mahoueffect();
 
 }
 
 public void mahoueffectnotparent(){
 
-itemcurrent.mahoueffectnotparent();
+itemcurrent?.mahoueffectnotparent();
 
 }
 public void itemdamage(int damagevalue){
-itemcurrent.itemdamage(damagevalue);
+itemcurrent?.itemdamage(damagevalue);
 
 
 
 }
 public void removecurrentitem(){
-    itemcurrent.removeitem();
+    itemcurrent?.removeitem();
 }
 public void itemthrow(){
-    itemcurrent.itemused();
+    itemcurrent?.itemused();
 }
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

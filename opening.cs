@@ -11,7 +11,7 @@ public GameObject Player;
    public void Start()
     {  startbutton.onClick.AddListener(Play);
 
-Player.GetComponent<UnityChanControlScriptWithRgidBody>().pause();
+Player.pclass().playerMovePram.stop=true;
 Player.pclass().AutoRotateCamera.enabled=false;
 
       
@@ -19,7 +19,7 @@ Player.pclass().AutoRotateCamera.enabled=false;
 
 void Play()
 {Player.pclass().AutoRotateCamera.enabled=true;
-Player.GetComponent<UnityChanControlScriptWithRgidBody>().start();
+Player.pclass().playerMovePram.stop=false;
 }
 
     // Update is called once per frame

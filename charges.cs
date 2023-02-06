@@ -28,7 +28,7 @@ anim.SetFloat("chargepower",chargevalue);
      charge=false;
      chargeeffonce=false;    
  handle.Stop();
-anim.gameObject.GetComponent<UnityChanControlScriptWithRgidBody>().stop=false;
+anim.gameObject.pclass().playerMovePram.stop=false;
 }
      
 

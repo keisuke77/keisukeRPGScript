@@ -8,11 +8,11 @@ public class zerogravity : StateMachineBehaviour
     // OnStateEnter is called when a transtion starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-      gravity=animator.gameObject.GetComponentIfNotNull<UnityChanControlScriptWithRgidBody>().gravity;
-      animator.gameObject.GetComponentIfNotNull<UnityChanControlScriptWithRgidBody>().gravity=0;
+      gravity=animator.gameObject.pclass().playerMovePram.gravity;
+      animator.gameObject.pclass().playerMovePram.gravity=0;
     }    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-      animator.gameObject.GetComponentIfNotNull<UnityChanControlScriptWithRgidBody>().gravity=gravity;
+           animator.gameObject.pclass().playerMovePram.gravity=gravity;
       
     }
 

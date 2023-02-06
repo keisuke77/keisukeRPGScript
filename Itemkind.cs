@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
  
+namespace ItemSystem
+{
 [Serializable]
 [CreateAssetMenu(fileName = "Item", menuName="CreateItem")]
 public class Itemkind : ScriptableObject {
@@ -124,4 +126,4 @@ public List<Itemkind> Remove(GameObject obj) {
 
 	}
 }
- 
+}

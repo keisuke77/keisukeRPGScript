@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using ItemSystem;
 
 [CreateAssetMenu(fileName = "itembox", menuName = "New Unity Project (1)/itembox", order = 0)]
 public class itembox : ScriptableObject {

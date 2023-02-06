@@ -10,9 +10,7 @@ public static class NullableGameObjectExtensions
 if (obj==null)
 {
   return default(T1);
-}
-
-if(obj.GetComponent<T1>()==null)
+}else if(obj.GetComponent<T1>()==null)
 {obj.AddComponent(typeof(T1));
   return obj.GetComponent<T1>();
 }else
@@ -41,7 +39,7 @@ foreach (var item in obj.GetAllChild())
         return self.GetComponent( type );   
     }
     
-    public static T GetComponentIfNotNull<T>( this UnityEngine.GameObject self )    
+    public static T GetComponentIfNotNull<T>( this UnityEngine.GameObject self )where T:UnityEngine.Component    
     {
         if ( self == null )
         {
@@ -375,32 +373,12 @@ foreach (Transform child in allChildren)
         self.BroadcastMessage( methodName, options );   
     }
   
-    public static UnityEngine.Component AddComponentIfNotNull( this UnityEngine.GameObject self, System.Type componentType )    
-    {
-        if ( self == null )
-        {
-            return default( UnityEngine.Component );
-        }
-        return self.AddComponent( componentType );  
-    }
+
     public static bool GetRatecheck( 
         this float self){
            return self>Random.value;
         }
-    public static T AddComponentIfNotNull<T>( this UnityEngine.GameObject self ) where T : UnityEngine.Component    
-    {
-        if ( self == null )
-        {
-            return default( T );
-        }else if(self.GetComponent<T>()!=null)
-        {
-            return self.GetComponent<T>();
-        }else
-        {
-             return (T)self.AddComponent<T>();    
-        }
-        }
-    
+  
     public static System.String ToStringIfNotNull( this UnityEngine.GameObject self )   
     {
         if ( self == null )

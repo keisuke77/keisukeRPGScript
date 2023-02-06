@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using ItemSystem;
 public class itemboxscreen : MonoBehaviour
 {
     public itembox itembox;

@@ -9,12 +9,12 @@ public float amount;
 public float decreasetime=10;
 public float increasetime=15;
 keiinput keiinput;
-public UnityChanControlScriptWithRgidBody UnityChanControlScriptWithRgidBody;
 public Coffee.UIExtensions.ShinyEffectForUGUI ShinyEffectForUGUI;
+Animator anim;
     // Start is called before the first frame update
     void Start()
     {keiinput=gameObject.pclass().keiinput;
-		
+    anim=gameObject.pclass().anim;
         if (!image)
         {
             image=GetComponent<Image>();
@@ -25,13 +25,13 @@ public Coffee.UIExtensions.ShinyEffectForUGUI ShinyEffectForUGUI;
 public void heal(float num){
 
  amount+=num;
- warning.message("気力が"+num+"回復した");
+ warning.instance?.message("気力が"+num+"回復した");
   ShinyEffectForUGUI.Play();
 }
     // Update is called once per frame
     void Update()
     {
-         if (keiinput.dashduring&&UnityChanControlScriptWithRgidBody.v>0)
+         if (keiinput.dashduring&&(anim.GetFloat("Speed")>0.1f||anim.GetFloat("speed")>0.1f))
         {
             amount-=(Time.deltaTime/decreasetime);
         }else
@@ -42,13 +42,13 @@ public void heal(float num){
       
         if (amount==0)
         {
-            UnityChanControlScriptWithRgidBody.anim.SetTrigger("tired");
+            gameObject.pclass().anim.SetTrigger("tired");
         }
         if(amount==1)
         {
             image.gameObject.transform.parent.gameObject.SetActive(false);
         }else{
-             image.gameObject.transform.parent.gameObject.SetActive(true);
+            image.gameObject.transform.parent.gameObject.SetActive(true);
          }
    image.fillAmount=amount; }
 }
