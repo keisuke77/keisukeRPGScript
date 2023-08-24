@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: f8bcb0096ec873944bc82cf0c1d54272
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ChatData: {instanceID: 0}
+  - message: {instanceID: 0}
+  - TwoSelectObj: {fileID: 2474734866542955231, guid: 9712d7bae9156be40b5ab39a35cb8270, type: 3}
+  - ThreeSelectObj: {fileID: 3339740159478985023, guid: 248d513f972c1ba43add2814e3f8c700, type: 3}
+  - fourSelectObj: {fileID: 2473015566833184749, guid: aeb4d5ea5de0ab24f8ce48fece9bb7ff, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

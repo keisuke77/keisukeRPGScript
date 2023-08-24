@@ -1,0 +1,1 @@
+#include<stdio.h>intmain(intargc,char*argv[]){printf("Hello,World!!¥n");return0;}

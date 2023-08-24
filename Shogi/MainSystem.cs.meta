@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: e02e9066e7b071a4eb52c24fe7f6af79
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - TouchEffect: {fileID: 1570927096764274, guid: 643639841fb531e4ba8097fed4eb9ac7,
+      type: 3}
+  - KomaModel: {fileID: 4496723677295071765, guid: ff632b298a0271c43a63adb4c770ce8d,
+      type: 3}
+  - BoardData: {fileID: 11400000, guid: dbbe4edf4d0b31c469a372afe9ca8275, type: 2}
+  - AirKoma: {fileID: 11400000, guid: eb5572d53ce522947a8d8402863abf0f, type: 2}
+  - message: {instanceID: 0}
+  - CurrentSelectKoma: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

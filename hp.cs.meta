@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 251f08a8080837448a730dc8a0ad4430
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - anim: {instanceID: 0}
+  - damageTextPrefab: {fileID: 7142085611692283070, guid: 9d700b13dbb1cb64bae2c35b89e6acd9, type: 3}
+  - FlickerModel: {instanceID: 0}
+  - hptext: {instanceID: 0}
+  - hpImage: {instanceID: 0}
+  - HitParticle: {fileID: 100004, guid: a89abc0d2591545288f4c041059ae633, type: 3}
+  - healparticle: {instanceID: 0}
+  - killer: {instanceID: 0}
+  - hpslider: {instanceID: 0}
+  - hiteffect: {fileID: 11400000, guid: b276c0c1066ec7d46ab2574d39564e62, type: 2}
+  - deathparticle: {fileID: 4386117814133761723, guid: eb9768544b5c8c842b81aebfe6b58e8e, type: 3}
+  - deatheffect: {fileID: 11400000, guid: 311a610014ebe5948815b7febbf737c8, type: 2}
+  - flashscrean: {instanceID: 0}
+  - itemdrop: {instanceID: 0}
+  - deathcanvas: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
