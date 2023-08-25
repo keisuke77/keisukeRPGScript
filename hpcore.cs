@@ -6,10 +6,7 @@ using Coffee.UIExtensions;
 using DG.Tweening;
 using System;
 using System.Linq;
-
 using UnityEngine.Events;
-using ItemSystem;
-using Cinemachine;
 
 using Cysharp.Threading.Tasks;  // UniTaskのためのnamespaceを追加
 
@@ -122,8 +119,11 @@ public class hpcore : basehp
     public bool damageshake;
 
 
-   CinemachineImpulseDefinition m_ImpulseDefinition = new CinemachineImpulseDefinition();
-    public void muteki(float time, System.Action ac = null)
+
+public Action cooldownHitAction;
+public Action HpHealAction;
+
+     public void muteki(float time, System.Action ac = null)
     {
         nodamage = true;
         keikei.delaycall(
@@ -137,10 +137,8 @@ public class hpcore : basehp
     }
 
     void Awake()
-    {    base.deathEvent = () => Death();
-
-       
-
+    {   
+        base.deathEvent = () => Death();
         anim = GetComponent<Animator>();
         if (DamagedRedMesh)
         {
@@ -152,10 +150,7 @@ public class hpcore : basehp
             damageTextPrefab = (GameObject)Resources.Load("DamagePopup");
         }
        
-        if (gameObject.cclass() != null)
-        {
-            gameObject.cclass().hpcore = this;
-        } SetUp();
+        SetUp();
     }
 
     public virtual void SetUp() { }
@@ -163,11 +158,10 @@ public class hpcore : basehp
     public virtual void hpheal(int amount)
     {
         base.heal(amount);
-        warning.instance?.message("HPが" + amount.ToString() + "回復した！");
-        GameObject obj;
-        if (healparticle != null)
+        HpHealAction();
+        if (healparticle)
         {
-            obj = Instantiate(healparticle, transform.position, Quaternion.identity) as GameObject;
+           var obj = Instantiate(healparticle, transform.position, Quaternion.identity) as GameObject;
             obj.transform.parent = transform;
         }
     }
@@ -205,7 +199,6 @@ pos=pos+new Vector3(UnityEngine.Random.Range(-1,1),UnityEngine.Random.Range(-1,1
         }
     }
 
-public Action cooldownHitAction;
     public bool damage(
         int damage,
         bool crit = false,
