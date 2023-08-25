@@ -35,7 +35,11 @@ _materialAndInitialColors = new Dictionary<Material, Color>();
         foreach (Renderer render in renderers)//レンダラーすべてを調べる
         {
  
+<<<<<<< HEAD
             foreach (Material material in render.materials)//マテリアルすべてを調査-
+=======
+            foreach (Material material in render.materials)//マテリアルすべてを調査
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
             {
                 if (material.HasProperty("_Color"))
                 {

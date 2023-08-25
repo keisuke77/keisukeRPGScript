@@ -19,14 +19,29 @@ data data;
   
 public int num;
 
+<<<<<<< HEAD
+=======
+public void questpanelopen(quest[] quest){
+questpanelopen();
+quests=quest;
+ questboardset(quests[num]);
+       
+}
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 
 public void questpanelopen(quests quest){
 
 bigtitle.text=quest.title;
+<<<<<<< HEAD
 
   questpanelopen();
 quests=quest.questss;
  questboardset(quests[num]);     
+=======
+questpanelopen(quest.questss);
+
+       
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 }
 
 public void questpanelopen()
@@ -98,20 +113,32 @@ public void questdecide(){
 quest quest=quests[num];
 if (data.nowquest==quest)
 {
+<<<<<<< HEAD
     warning.instance?.warn("既におなじクエストを受注しています");
+=======
+    warning.warn("既におなじクエストを受注しています");
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 }
 
 if (data.money>quest.needmoney&&data.level>quest.needlevel)
 {
     data.nowquest=quest;
+<<<<<<< HEAD
     warning.instance?.message("クエストの受注に成功しました",2);
+=======
+    warning.message("クエストの受注に成功しました",2);
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 
     data.money-=quest.needmoney;
     quest.queststart();
     questpanelclose();
 }else
 {
+<<<<<<< HEAD
      warning.instance?.message("クエストの受注条件を満たしていません",1);
+=======
+     warning.message("クエストの受注条件を満たしていません",1);
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 
 }
 

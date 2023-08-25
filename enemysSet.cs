@@ -16,6 +16,7 @@ public class enemysSet : ScriptableObject
 
     public List<enemy> enemys;
 
+<<<<<<< HEAD
       public List<GameObject> spawn(Transform trans){
 var objs=new List<GameObject>(30);
 foreach (enemysSet.enemy item in enemys)
@@ -31,5 +32,7 @@ for (var i = 0; i < item.number; i++)
      }
 
 
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
  
   }

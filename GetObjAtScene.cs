@@ -16,12 +16,17 @@ public static class GetObjAtScene
         {
             // includeInactive = true を指定するとGameObjectが非活性なものからも取得する
             var components = item.GetComponentsInChildren<T>(includeInactive);
+<<<<<<< HEAD
             if (components!=null)
             {
                   resultComponents = resultComponents.Concat(components);
   
             }
                 }
+=======
+            resultComponents = resultComponents.Concat(components);
+        }
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
         return resultComponents.ToArray();
     }
 

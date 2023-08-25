@@ -37,9 +37,16 @@ foreach (var item in num)
    
     
 }
+<<<<<<< HEAD
 
 public List<Collider> GetTriger(){
    var a=new List<Collider>();
+=======
+public List<Collider> a;
+
+public List<Collider> GetTriger(){
+    a=new List<Collider>();
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
     
 foreach (var item in num)
 {

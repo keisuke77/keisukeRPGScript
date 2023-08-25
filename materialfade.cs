@@ -11,10 +11,14 @@ public class materialfade : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
+<<<<<<< HEAD
     {if (material!=null)
     {
         
     }
+=======
+    {
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
         originalcolor= material.color;
     }
      private void OnApplicationQuit()
@@ -25,7 +29,11 @@ public void objecttransformallfade(GameObject a){
 
 
  
+<<<<<<< HEAD
   obj=a.GetAllChildrenAndSelf(); 
+=======
+  obj=getallchildren.GetAll(a); 
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 while(a.GetComponent<Renderer>().material.color.a>1){
 
  foreach (GameObject child in obj)

@@ -1,9 +1,12 @@
 using UnityEngine;
 
+<<<<<<< HEAD
 public enum directionXYZ
 {front,horizon,height
 	 
 }
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 [CreateAssetMenu(fileName = "xyz", menuName = "")]
 public class xyz : ScriptableObject
 {
@@ -11,7 +14,10 @@ public directionXYZ x;
 public directionXYZ y;
 public directionXYZ z;
 
+<<<<<<< HEAD
    
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 public Vector3 Gethight(){
 return Gethight(1);
 }

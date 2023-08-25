@@ -23,6 +23,7 @@ public Dictionary<string,int> restenemy;
 
 
 public void enemykill(string name){
+<<<<<<< HEAD
     if (!restenemy.ContainsKey(name))
     {
         return;
@@ -34,6 +35,15 @@ warning.instance?.message("クエストターゲット"+name+"を全て倒した
 }else
 {
 warning.instance?.message("クエストターゲット"+name+"を倒した！\n残りは"+
+=======
+restenemy[name]-=1;
+if (restenemy[name]==0)
+{
+warning.message("クエストターゲット"+name+"を全て倒した！");
+}else
+{
+warning.message("クエストターゲット"+name+"を倒した！\n残りは"+
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 restenemy[name]+"体だ！");
 }
 questclearcheck();
@@ -71,7 +81,11 @@ if (check<=0)
 }
 public void questclear(){
 keikei.playerdata.nowquest=null;
+<<<<<<< HEAD
 warning.instance?.message(clearmessage,2);
+=======
+warning.message(clearmessage,2);
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 keikei.playerdata.addexp(exp);
 keikei.playerdata.addmoney(money);
 itemdrops.itemdropers();

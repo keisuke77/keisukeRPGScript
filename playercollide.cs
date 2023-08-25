@@ -30,7 +30,10 @@ if (obj.proottag())
 void OnCollisionEnter(Collision collisionInfo)
 {
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
    Play(collisionInfo.gameObject);
 }
 void OnCollisionExit(Collision collisionInfo)

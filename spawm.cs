@@ -7,7 +7,14 @@ public class spawm : MonoBehaviour
     private Vector3 random; 
 public int number;
     public float stagerange=100;  // Start is called before the first frame update
+<<<<<<< HEAD
  
+=======
+    void Start()
+    {
+        
+    }
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 int num;
     // Update is called once per frame
     void Update()

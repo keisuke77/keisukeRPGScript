@@ -12,6 +12,10 @@ public class objectchange : MonoBehaviour
     public GameObject[] objlist;
 	public GameObject nowobj;
 	
+<<<<<<< HEAD
+=======
+ public triggeronoff trigeronoff;
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 void Start()
 {
 	objhide();
@@ -49,10 +53,26 @@ void objchanger(){
 objlist[active].SetActive(true);
 
 nowobj=objlist[active];
+<<<<<<< HEAD
 weapon();
 }
 
 public virtual void weapon(){}
+=======
+
+if (objlist[active].GetComponent<Collider>()!=null)
+{
+	
+objlist[active].GetComponent<Collider>().isTrigger=true;
+trigeronoff.obj=objlist[active].GetComponent<Collider>();
+
+}
+if (objlist[active].GetComponent<interactionenter>()!=null)
+{
+	objlist[active].GetComponent<interactionenter>().nowinteraction.Itemkind=gameObject.pclass().itemcurrent.Itemkind;
+}
+}
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 	// Update is called once per frame
 	void Update () {
 		if (active>=objlist.Length)

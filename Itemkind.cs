@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
  
+<<<<<<< HEAD
 namespace ItemSystem
 {
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 [Serializable]
 [CreateAssetMenu(fileName = "Item", menuName="CreateItem")]
 public class Itemkind : ScriptableObject {
  
+<<<<<<< HEAD
  
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 	public enum KindOfItem {
 		Weapon,
 		useWeapon,
@@ -51,7 +57,10 @@ public float usetime;
 	[SerializeField]
 	private string information;
  
+<<<<<<< HEAD
  public bool canThrow;
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
  public Animation anim;
  public int deltanumber;
  public int optionset(int a){
@@ -103,7 +112,11 @@ public float usetime;
 	public string GetItemName() {
 		return itemName;
 	}
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 	public string GetInformation() {
 		return information;
 	}
@@ -128,4 +141,8 @@ public List<Itemkind> Remove(GameObject obj) {
 
 	}
 }
+<<<<<<< HEAD
 }
+=======
+ 
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae

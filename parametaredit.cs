@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+<<<<<<< HEAD
 
 public class parametaredit : StateMachineBehaviour
 {
@@ -27,11 +28,36 @@ public class parametaredit : StateMachineBehaviour
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
     //
+=======
+public class parametaredit : StateMachineBehaviour
+{
+   public enum MyEnumType
+    {
+        enter,exit
+    }
+    [System.Serializable]
+   public class parameta
+    {
+        
+  public string motionboolname="ScrewKick";
+    public bool setbool=false;
+    public float setfloat;
+public MyEnumType timing;
+ public float delate;
+    }
+
+    public parameta[] parametas;
+    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
+<<<<<<< HEAD
     //
     //}
     public void setbool(Animator anim, string motionboolname, bool bools)
@@ -99,18 +125,90 @@ public class parametaredit : StateMachineBehaviour
     //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
     //
+=======
+    //    
+    //}
+public void setbool(Animator anim,string motionboolname,bool bools){
+
+ anim.GetComponent<Animator>().SetBool(motionboolname,bools);
+    
+
+}
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        
+        foreach (var item in parametas)
+        { if (item.timing==MyEnumType.exit)
+    {
+            if (item.delate==0)
+    {
+        animator.SetBool(item.motionboolname,item.setbool);
+  animator.SetFloat(item.motionboolname,item.setfloat);
+  
+    }else
+    {
+         DOVirtual.DelayedCall(item.delate, () => {
+ 
+  animator.SetBool(item.motionboolname,item.setbool);
+  animator.SetFloat(item.motionboolname,item.setfloat);
+  
+  });   
+    }}
+         }
+    }
+            override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    { foreach (var item in parametas)
+        {
+
+
+            
+            if (item.timing==MyEnumType.enter)
+    {if (item.delate==0)
+    {
+        animator.SetBool(item.motionboolname,item.setbool);
+   animator.SetFloat(item.motionboolname,item.setfloat);
+
+    }else
+    {
+         DOVirtual.DelayedCall(item.delate, () => {
+ 
+  animator.SetBool(item.motionboolname,item.setbool);
+   animator.SetFloat(item.motionboolname,item.setfloat);
+
+  });   
+    }
+   
+  
+  
+   }
+       
+        }  }
+   // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
+    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    //{
+    //    
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
     //}
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
+<<<<<<< HEAD
     //
+=======
+    //    
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
     //}
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     //{
+<<<<<<< HEAD
     //
+=======
+    //    
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
     //}
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

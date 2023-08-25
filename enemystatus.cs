@@ -8,6 +8,11 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "status", menuName = "enemystatus")]
 public class enemystatus : ScriptableObject
 { public waza waza;
+<<<<<<< HEAD
+=======
+public motions BigDamageMotion;
+public motions DamageMotion;
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
     public int power=5;
     public string name;
     public itemdrops itemdrops;
@@ -21,6 +26,7 @@ public float scale=1;
 public GameObject enemy;
 public Sprite icon;
  public int patroldistance=23;
+<<<<<<< HEAD
 
 
 
@@ -37,4 +43,6 @@ public Sprite icon;
     return obj;
     } 
 
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
   }

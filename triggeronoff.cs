@@ -40,7 +40,6 @@ aa.GetComponent<Collider>().enabled=false;
    
     
 }
-
 public void ontriger(){
 
     obj.enabled=true;

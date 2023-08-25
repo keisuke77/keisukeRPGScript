@@ -25,7 +25,11 @@ public UnityEngine.Events.UnityEvent events;
             ondamage(other.gameObject);
 if (trip)
 {
+<<<<<<< HEAD
     other.gameObject.cclass().anim.SetTrigger("trip");
+=======
+    other.gameObject.root().GetComponent<Animator>().SetTrigger("trip");
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 }
 
     
@@ -39,14 +43,22 @@ if (!obj.proottag())
     return;
 }
     
+<<<<<<< HEAD
 obj.pclass().hpcore.damage(damagevalue,true,gameObject);
+=======
+obj.GetComponent<hpcore>().damage(damagevalue,true,gameObject);
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
       if (hitdespawn)
       {
           Destroy(gameObject);
       }
         if (addforce)
 {
+<<<<<<< HEAD
  obj.PlayerAddForce(transform.forward*forcepower);
+=======
+ obj.root().GetComponent<UnityChanControlScriptWithRgidBody>().AddForce(transform.forward*forcepower);
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
    
 }
 events.Invoke();

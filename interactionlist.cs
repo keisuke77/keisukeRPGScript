@@ -13,10 +13,17 @@ public int childCount;
 public GameObject panel;
  bool once=true;
  public static interactionlist Instance;
+<<<<<<< HEAD
  
 void Awake()
 {
     Instance=this;
+=======
+ void Awake()
+ {
+    Instance=this;
+      
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
  }
     // Start is called before the first frame update
     void Start()

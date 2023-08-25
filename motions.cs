@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Linq;
-
 [CreateAssetMenu(fileName = "motion", menuName = "")]
 public class motions : ScriptableObject
 {

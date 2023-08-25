@@ -3,6 +3,7 @@ guid: 3535319ca64d06d4d94b36a66066a5b3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
+<<<<<<< HEAD
   defaultReferences:
   - hptext: {instanceID: 0}
   - hpImage: {instanceID: 0}
@@ -13,6 +14,9 @@ MonoImporter:
   - damageTextPos: {instanceID: 0}
   - killer: {instanceID: 0}
   - healparticle: {instanceID: 0}
+=======
+  defaultReferences: []
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

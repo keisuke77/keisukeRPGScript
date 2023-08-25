@@ -69,7 +69,6 @@ public static void destroy(GameObject obj,float time){
 
 Destroy(obj,time);
 }
-
   public static void Destroys(Component com){
 
 Destroy(com);

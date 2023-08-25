@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
  
+<<<<<<< HEAD
 namespace ItemSystem
 {
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 [CreateAssetMenu(fileName = "ItemDataBase", menuName="CreateItemInventory")]
 public class iteminventory : ScriptableObject{
  
@@ -28,7 +31,11 @@ foreach (Itemkind items in myitemLists)
 	item.addnumber();
 	if (message)
 	{
+<<<<<<< HEAD
 	   warning.instance?.message(item.GetItemName()+"をゲットした");
+=======
+	   warning.message(item.GetItemName()+"をゲットした");
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
     
 	}
 	    
@@ -41,13 +48,21 @@ if (myitemLists.Count<Listsize)
 myitemLists.Add(item);	
 if (message)
 	{
+<<<<<<< HEAD
 	   warning.instance?.message(item.GetItemName()+"をゲットした");
+=======
+	   warning.message(item.GetItemName()+"をゲットした");
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
     
 	}
 return true;
 }else
 {
+<<<<<<< HEAD
 warning.instance?.message("インベントリがいっぱいです",1);
+=======
+warning.message("インベントリがいっぱいです",1);
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 return false;
 }
 	
@@ -86,5 +101,8 @@ public List<Itemkind> clearLists() {
 	public List<Itemkind> GetmyItemLists() {
 		return myitemLists;
 	}
+<<<<<<< HEAD
 }
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 }

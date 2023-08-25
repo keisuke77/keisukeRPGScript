@@ -6,6 +6,10 @@ using DG.Tweening;
 
 public class buttonselect : MonoBehaviour
 {public Button[] buttons;
+<<<<<<< HEAD
+=======
+public keiinput keiinput;
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 public int num;
  Vector3 basescale;
     // Start is called before the first frame update
@@ -41,16 +45,28 @@ foreach (var item in buttons)
     void Update()
     {
         
+<<<<<<< HEAD
 if (keiinput.Instance.add)
+=======
+if (keiinput.add)
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 {
 	num++;
    select();
 }
+<<<<<<< HEAD
 if (keiinput.Instance.decide)
 {
 	decide();
 }
 if (keiinput.Instance.down)
+=======
+if (keiinput.decide)
+{
+	decide();
+}
+if (keiinput.down)
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 {num--;
 	 select();
 }

@@ -13,7 +13,6 @@ public class methodexecute : StateMachineBehaviour
         exit
     }
 
-
    public string methodname;
    public warpdata warpdata;
     public MyEnumType timing;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+<<<<<<< HEAD
 using ItemSystem;
 [CreateAssetMenu(fileName = "ItemDataBase", menuName="CreateItemRandom")]
 public class RandomItemkind : ScriptableObject {
@@ -8,6 +9,12 @@ public class RandomItemkind : ScriptableObject {
 
 
 
+=======
+ 
+[CreateAssetMenu(fileName = "ItemDataBase", menuName="CreateItemRandom")]
+public class RandomItemkind : ScriptableObject {
+ int totalweight;
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 	[SerializeField]
 	private List<itemrandomdata> itemrandomlist = new List<itemrandomdata>();
  

@@ -7,7 +7,14 @@ public class nodamage : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex){
 
+<<<<<<< HEAD
 animator.GetComponent<hpcore>().nodamage=true;
+=======
+animator.GetComponent<hp>().nodamage=true;
+
+animator.GetComponent<enemyhp>().nodamage=true;
+
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 
 }
     //    

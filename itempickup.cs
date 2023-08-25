@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+<<<<<<< HEAD
 using ItemSystem;
 
+=======
+>>>>>>> 8f801b51619bfcf5558b25515bc1db31499b7dae
 public class itempickup : MonoBehaviour
 {
     public Itemkind Itemkind;

@@ -152,7 +152,6 @@ public int nowPlayerSideSelectNumber;
 public int nowEnemySideSelectNumber;
 
 int tempnum;
-
 public void StateAction(){
 
 
